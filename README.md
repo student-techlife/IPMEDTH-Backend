@@ -3,7 +3,7 @@
 *** github_username, repo_name
 -->
 
-# 🐳 Laravel docker prod/dev setup
+# 🐳 IPMEDTH - Backend
 <!-- PROJECT SHIELDS -->
 ![Project Maintenance][maintenance-shield]
 [![License][license-shield]](LICENSE.md)
@@ -18,7 +18,7 @@
 
 ## About
 
-This is a template repository for running Laravel within a Docker environment.
+This is the Laravel backend for storing the data from the measurements performed in the frontend.
 
 ## Development - Get started
 
@@ -89,12 +89,6 @@ cd laravel && php artisan migrate
 ```
 </details>
 
-## Contributing
-
-Would you like to contribute to the development of this project? Then read the prepared [contribution guidelines](CONTRIBUTING.md) and go ahead!
-
-Thank you for being involved! :heart_eyes:
-
 ## License
 
 MIT License
@@ -121,15 +115,15 @@ SOFTWARE.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg?style=for-the-badge
-[contributors-shield]: https://img.shields.io/github/contributors/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[contributors-url]: https://github.com/klaasnicolaas/laravel-docker/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[forks-url]: https://github.com/klaasnicolaas/laravel-docker/network/members
-[stars-shield]: https://img.shields.io/github/stars/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[stars-url]: https://github.com/klaasnicolaas/laravel-docker/stargazers
-[issues-shield]: https://img.shields.io/github/issues/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[issues-url]: https://github.com/klaasnicolaas/laravel-docker/issues
-[license-shield]: https://img.shields.io/github/license/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/laravel-docker.svg?style=for-the-badge
-[commits]: https://github.com/klaasnicolaas/laravel-docker/commits/master
-[last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/laravel-docker.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[contributors-url]: https://github.com/Baeshee/IPMEDTH-Backend/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[forks-url]: https://github.com/Baeshee/IPMEDTH-Backend/network/members
+[stars-shield]: https://img.shields.io/github/stars/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[stars-url]: https://github.com/Baeshee/IPMEDTH-Backend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[issues-url]: https://github.com/Baeshee/IPMEDTH-Backend/issues
+[license-shield]: https://img.shields.io/github/license/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[commits-shield]: https://img.shields.io/github/commit-activity/y/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
+[commits]: https://github.com/Baeshee/IPMEDTH-Backend/commits/master
+[last-commit-shield]: https://img.shields.io/github/last-commit/Baeshee/IPMEDTH-Backend.svg?style=for-the-badge
