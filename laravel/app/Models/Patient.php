@@ -32,8 +32,8 @@ class Patient extends Model
     /**
      * Relationships
      */
-    public function measurements()
+    public function sessions()
     {
-        return $this->hasMany(Measurement::class);
+        return $this->hasMany(Session::class);
     }
 }

@@ -19,6 +19,7 @@ class Patient extends JsonResource
             'name' => $this->name,
             'date_of_birth' => $this->date_of_birth->format('d-m-Y'),
             'email' => $this->email,
+            'sessions' => Session::collection($this->sessions),
             'created_at' => $this->created_at->format('d-m-Y H:m:s'),
             'updated_at' => $this->updated_at->format('d-m-Y H:m:s'),
         ];

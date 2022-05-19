@@ -86,6 +86,9 @@ class PatientController extends BaseController
      */
     public function destroy(Patient $patient)
     {
+        if (is_null($patient)) {
+            return $this->sendError('Patient not found.');
+        }
         $patient->delete();
         return $this->sendResponse([], 'Patient deleted successfully.');
     }
