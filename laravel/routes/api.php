@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+* Routes for authentication
+*/
+Route::controller(Api\AuthController::class)->prefix('auth')->group(function() {
+    Route::post('register', 'register');
+    Route::post('login', 'login');
+    Route::middleware('auth:sanctum')->group(function() {
+        Route::post('logout', 'logout');
+        Route::get('user', 'getAuthenticatedUser');
+    });
+});
+
+/*
+* Protected routes
+*/
+Route::middleware('auth:sanctum')->group( function () {
+    Route::apiResource('patients', Api\PatientController::class);
+    Route::apiResource('measurements', Api\MeasurementController::class);
+    Route::apiResource('sessions', Api\SessionController::class);
+});
+
+/**
+ * Fallback function
+ * Keep this at the end of the file
+ */
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@ipmedth.nl'], 404);
 });
