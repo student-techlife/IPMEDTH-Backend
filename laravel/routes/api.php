@@ -33,6 +33,7 @@ Route::controller(Api\AuthController::class)->prefix('auth')->group(function() {
 */
 Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('patients', Api\PatientController::class);
+    Route::apiResource('sessions', Api\SessionController::class);
 });
 
 /**
