@@ -18,7 +18,7 @@ class PatientController extends BaseController
     public function index()
     {
         $patients = Patient::all();
-        return $this->sendResponse(PatientResource::collection($patients), 'Patients retrieved successfully.');
+        return $this->sendResponse(PatientResource::collection($patients), 'All patients retrieved successfully.');
     }
 
     /**
@@ -65,6 +65,7 @@ class PatientController extends BaseController
      */
     public function update(Request $request, Patient $patient)
     {
+        // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'date_of_birth' => 'date|nullable',
