@@ -15,8 +15,13 @@ return new class extends Migration
     {
         Schema::create('measurements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('patients');
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
+            $table->json('finger_1');
+            $table->json('finger_2');
+            $table->json('finger_3');
+            $table->json('finger_4');
+            $table->json('finger_5');
             $table->timestamps();
         });
     }

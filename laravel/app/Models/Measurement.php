@@ -15,20 +15,25 @@ class Measurement extends Model
      * @var array
      */
     protected $fillable = [
-        'patient_id',
         'user_id',
+        'session_id',
+        'finger_1',
+        'finger_2',
+        'finger_3',
+        'finger_4',
+        'finger_5',
     ];
 
     /**
      * Relationships
      */
-    public function patient()
-    {
-        return $this->belongsTo(Patient::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
     }
 }
