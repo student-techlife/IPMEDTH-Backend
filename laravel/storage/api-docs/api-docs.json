@@ -132,6 +132,157 @@
                 ]
             }
         },
+        "/measurements": {
+            "get": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Get all measurements",
+                "description": "Returns all measurements",
+                "operationId": "GetMeasurements",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Create a new measurement",
+                "description": "Returns a new measurement",
+                "operationId": "CreateMeasurement",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MeasurementRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/measurements/{id}": {
+            "get": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Get a measurement",
+                "description": "Returns a measurement",
+                "operationId": "GetMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Update a measurement",
+                "description": "Returns updated measurement",
+                "operationId": "UpdateMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MeasurementRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Delete a measurement",
+                "description": "Returns deleted measurement",
+                "operationId": "DeleteMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/patients": {
             "get": {
                 "tags": [
@@ -437,6 +588,56 @@
     },
     "components": {
         "schemas": {
+            "MeasurementRequest": {
+                "required": [
+                    "session_id",
+                    "hand_type",
+                    "finger_1",
+                    "finger_2",
+                    "finger_3",
+                    "finger_4",
+                    "finger_5"
+                ],
+                "properties": {
+                    "session_id": {
+                        "description": "Session id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "hand_type": {
+                        "description": "hand_type",
+                        "type": "string",
+                        "example": "left"
+                    },
+                    "finger_1": {
+                        "description": "Thumb",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_2": {
+                        "description": "Index finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_3": {
+                        "description": "Middle finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_4": {
+                        "description": "Ring finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_5": {
+                        "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    }
+                },
+                "type": "object"
+            },
             "PatientRequest": {
                 "required": [
                     "name",
@@ -444,19 +645,20 @@
                 ],
                 "properties": {
                     "name": {
-                        "description": "name",
-                        "format": "string",
-                        "default": "Jane"
+                        "description": "Name of the patient",
+                        "type": "string",
+                        "example": "Jane"
                     },
                     "date_of_birth": {
-                        "description": "birthdate",
+                        "description": "Birthday of patient",
+                        "type": "string",
                         "format": "date",
-                        "default": "1990-01-01"
+                        "example": "1990-01-01"
                     },
                     "email": {
-                        "description": "email",
-                        "format": "email",
-                        "default": "jane@doe.com"
+                        "description": "Email of the patient",
+                        "type": "email",
+                        "example": "jane@doe.com"
                     }
                 },
                 "type": "object"
@@ -469,19 +671,19 @@
                 ],
                 "properties": {
                     "name": {
-                        "description": "name",
-                        "format": "string",
-                        "default": "Jaane"
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "Jane"
                     },
                     "email": {
-                        "description": "email",
-                        "format": "email",
-                        "default": "jane@doe.com"
+                        "description": "Email from the user",
+                        "type": "email",
+                        "example": "jane@doe.com"
                     },
                     "password": {
-                        "description": "password",
-                        "format": "string",
-                        "default": "password"
+                        "description": "The password you want to use",
+                        "type": "string",
+                        "example": "password"
                     }
                 },
                 "type": "object"
@@ -493,14 +695,16 @@
                 ],
                 "properties": {
                     "date": {
-                        "description": "date",
+                        "description": "Date the session will take place",
+                        "type": "string",
                         "format": "date",
-                        "default": "20-05-2022"
+                        "example": "20-05-2022"
                     },
                     "patient_id": {
-                        "description": "patien_id",
-                        "format": "int",
-                        "default": "1"
+                        "description": "ID of the patient linked to this session",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -527,6 +731,10 @@
         {
             "name": "Sessions",
             "description": "API Endpoints for Sessions"
+        },
+        {
+            "name": "Measurements",
+            "description": "API Endpoints for Measurements"
         }
     ]
 }

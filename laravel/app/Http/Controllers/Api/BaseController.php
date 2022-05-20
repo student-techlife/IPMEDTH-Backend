@@ -36,6 +36,10 @@ use Illuminate\Http\Request;
  *     name="Sessions",
  *     description="API Endpoints for Sessions"
  * )
+ * @OA\Tag(
+ *     name="Measurements",
+ *     description="API Endpoints for Measurements"
+ * )
  * 
  * @OAS\SecurityScheme(
  *     securityScheme="sanctum",
