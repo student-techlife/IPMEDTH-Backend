@@ -68,8 +68,8 @@ class AuthController extends BaseController
      *     operationId="Login",
      *     tags={"Auth"},
      *     summary="Login user and create token",
+     *     description="Login user and return a token",
      *     @OA\RequestBody(
-     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
@@ -85,13 +85,13 @@ class AuthController extends BaseController
      *             )
      *         )
      *      ),
-     *     @OA\Response(
+     *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
      *      ),
      *      @OA\Response(
-     *          response=422,
-     *          description="Validation error",
+     *          response=401,
+     *          description="Unauthorized",
      *      ),
      * )
      */
@@ -119,6 +119,7 @@ class AuthController extends BaseController
      *     operationId="Logout",
      *     tags={"Auth"},
      *     summary="Logout user",
+     *     description="Returns a message",
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
@@ -148,6 +149,7 @@ class AuthController extends BaseController
      *     operationId="GetUser",
      *     tags={"Auth"},
      *     summary="Get authenticated user info",
+     *     description="Returns a user",
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 /**
- * @OA\Schema()
+ * @OA\Schema(required={"name", "email", "password"})
  */
 class RegisterRequest extends FormRequest
 {
