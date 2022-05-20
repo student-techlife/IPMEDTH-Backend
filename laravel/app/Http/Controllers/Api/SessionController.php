@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Session as SessionResource;
+use App\Http\Requests\SessionRequest;
 use Illuminate\Http\Request;
 use App\Models\Session;
 use Validator;
@@ -14,6 +15,20 @@ class SessionController extends BaseController
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Get(
+     *     path="/sessions",
+     *     operationId="GetSessions",
+     *     tags={"Sessions"},
+     *     summary="Get all sessions",
+     *     description="Returns all sessions",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     ),
+     * )
      */
     public function index()
     {
@@ -27,18 +42,35 @@ class SessionController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /**
+     * @OA\Post(
+     *     path="/sessions",
+     *     operationId="CreateSession",
+     *     tags={"Sessions"},
+     *     summary="Create a new session",
+     *     description="Returns a new session",
+     *     security={ {"sanctum": {} }},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/SessionRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function store(SessionRequest $request)
     {
-        // Validation
-        $validator = Validator::make($request->all(), [
-            'date' => 'required|date',
-            'patient_id' => 'required|exists:patients,id',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
         // Store a new session instance
         $session = new Session();
         $session->date = $request->date;
@@ -56,6 +88,30 @@ class SessionController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Get(
+     *     path="/sessions/{id}",
+     *     operationId="GetSession",
+     *     tags={"Sessions"},
+     *     summary="Get a session",
+     *     description="Returns a session",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Session id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *     ),
+     * )
+     */
     public function show($id)
     {
         $session = Session::find($id);
@@ -72,23 +128,45 @@ class SessionController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /**
+     * @OA\Put(
+     *     path="/sessions/{id}",
+     *     operationId="UpdateSession",
+     *     tags={"Sessions"},
+     *     summary="Update a session",
+     *     description="Update a session",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Session id",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/SessionRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function update(SessionRequest $request, Session $session)
     {
-        // Get the session instance
-        $session = Session::find($id);
-        if (is_null($session)) {
-            return $this->sendError('Session not found.');
-        }
-
-        // Validation
-        $validator = Validator::make($request->all(), [
-            'date' => 'required|date',
-            'patient_id' => 'required|exists:patients,id',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
         $session->update($request->all());
         return $this->sendResponse(new SessionResource($session), 'Session updated successfully.');
     }
@@ -98,6 +176,30 @@ class SessionController extends BaseController
      *
      * @param  \App\Models\Session  $session
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Delete(
+     *     path="/sessions/{id}",
+     *     operationId="DeleteSession",
+     *     tags={"Sessions"},
+     *     summary="Delete a session",
+     *     description="Delete a session",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Session id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *     ),
+     * )
      */
     public function destroy(Session $session)
     {

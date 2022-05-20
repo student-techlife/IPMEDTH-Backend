@@ -32,6 +32,10 @@ use Illuminate\Http\Request;
  *     name="Patients",
  *     description="API Endpoints for Patients"
  * )
+ * @OA\Tag(
+ *     name="Sessions",
+ *     description="API Endpoints for Sessions"
+ * )
  * 
  * @OAS\SecurityScheme(
  *     securityScheme="sanctum",

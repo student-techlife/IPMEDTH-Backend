@@ -282,6 +282,157 @@
                     }
                 ]
             }
+        },
+        "/sessions": {
+            "get": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Get all sessions",
+                "description": "Returns all sessions",
+                "operationId": "GetSessions",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Create a new session",
+                "description": "Returns a new session",
+                "operationId": "CreateSession",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SessionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/sessions/{id}": {
+            "get": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Get a session",
+                "description": "Returns a session",
+                "operationId": "GetSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Update a session",
+                "description": "Update a session",
+                "operationId": "UpdateSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SessionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Delete a session",
+                "description": "Delete a session",
+                "operationId": "DeleteSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -334,6 +485,25 @@
                     }
                 },
                 "type": "object"
+            },
+            "SessionRequest": {
+                "required": [
+                    "date",
+                    "patient_id"
+                ],
+                "properties": {
+                    "date": {
+                        "description": "date",
+                        "format": "date",
+                        "default": "20-05-2022"
+                    },
+                    "patient_id": {
+                        "description": "patien_id",
+                        "format": "int",
+                        "default": "1"
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {
@@ -353,6 +523,10 @@
         {
             "name": "Patients",
             "description": "API Endpoints for Patients"
+        },
+        {
+            "name": "Sessions",
+            "description": "API Endpoints for Sessions"
         }
     ]
 }
