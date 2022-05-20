@@ -28,26 +28,11 @@
                 "description": "Returns a new user",
                 "operationId": "Register",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "email"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "a3fb6",
-                                    "email": "Jessica Smith",
-                                    "password": 12345678
-                                }
+                                "$ref": "#/components/schemas/RegisterRequest"
                             }
                         }
                     }
@@ -70,6 +55,7 @@
                 "summary": "Login user and create token",
                 "operationId": "Login",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -113,9 +99,6 @@
                     },
                     "401": {
                         "description": "Unauthorised"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
                 },
                 "security": [
@@ -123,6 +106,60 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get authenticated user info",
+                "operationId": "GetUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RegisterRequest": {
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "Jaane"
+                    },
+                    "email": {
+                        "description": "email",
+                        "format": "email",
+                        "default": "jane@doe.com"
+                    },
+                    "password": {
+                        "description": "password",
+                        "format": "string",
+                        "default": "password"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },
@@ -135,15 +172,5 @@
             "name": "Patients",
             "description": "API Endpoints for Patients"
         }
-    ],
-    "components": {
-        "securitySchemes": {
-            "sanctum": {
-                "type": "apiKey",
-                "description": "Enter token in format (Bearer <token>)",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    }
+    ]
 }

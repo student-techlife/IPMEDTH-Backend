@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -24,22 +25,12 @@ class AuthController extends BaseController
      *      summary="Register a new user",
      *      description="Returns a new user",
      *      @OA\RequestBody(
+     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="email"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string"
-     *                 ),
-     *                 example={"name": "a3fb6", "email": "Jessica Smith", "password": 12345678}
+     *                 type="object",
+     *                 ref="#/components/schemas/RegisterRequest",
      *             )
      *         )
      *      ),
@@ -53,18 +44,8 @@ class AuthController extends BaseController
      *      ),
      *  )
      **/
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
@@ -88,6 +69,7 @@ class AuthController extends BaseController
      *     tags={"Auth"},
      *     summary="Login user and create token",
      *     @OA\RequestBody(
+     *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
@@ -146,10 +128,6 @@ class AuthController extends BaseController
      *         response=401,
      *         description="Unauthorised",
      *     ),
-     *     @OA\Response(
-     *         response=403,
-     *         description="Forbidden",
-     *     ),
      * )
      */
     public function logout(Request $request)
@@ -163,6 +141,23 @@ class AuthController extends BaseController
 
     /**
      * Get authenticated user info
+     */
+    /**
+     * @OA\Get(
+     *     path="/auth/user",
+     *     operationId="GetUser",
+     *     tags={"Auth"},
+     *     summary="Get authenticated user info",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorised",
+     *     ),
+     * )
      */
     public function getAuthenticatedUser(Request $request)
     {
