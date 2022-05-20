@@ -53,9 +53,9 @@
                     "Auth"
                 ],
                 "summary": "Login user and create token",
+                "description": "Login user and return a token",
                 "operationId": "Login",
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -80,8 +80,8 @@
                     "200": {
                         "description": "Successful operation"
                     },
-                    "422": {
-                        "description": "Validation error"
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
@@ -92,6 +92,7 @@
                     "Auth"
                 ],
                 "summary": "Logout user",
+                "description": "Returns a message",
                 "operationId": "Logout",
                 "responses": {
                     "200": {
@@ -114,6 +115,7 @@
                     "Auth"
                 ],
                 "summary": "Get authenticated user info",
+                "description": "Returns a user",
                 "operationId": "GetUser",
                 "responses": {
                     "200": {
@@ -129,11 +131,191 @@
                     }
                 ]
             }
+        },
+        "/patients": {
+            "get": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Get all patients",
+                "description": "Returns all patients",
+                "operationId": "GetPatients",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Create a new patient",
+                "description": "Returns a new patient",
+                "operationId": "CreatePatient",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/patients/{id}": {
+            "get": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Get a patient",
+                "description": "Returns a patient",
+                "operationId": "GetPatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Update a patient",
+                "description": "Update a patient",
+                "operationId": "UpdatePatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Delete a patient",
+                "description": "Delete a patient",
+                "operationId": "DeletePatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "PatientRequest": {
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "format": "string",
+                        "default": "Jane"
+                    },
+                    "date_of_birth": {
+                        "description": "birthdate",
+                        "format": "date",
+                        "default": "1990-01-01"
+                    },
+                    "email": {
+                        "description": "email",
+                        "format": "email",
+                        "default": "jane@doe.com"
+                    }
+                },
+                "type": "object"
+            },
             "RegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
                 "properties": {
                     "name": {
                         "description": "name",
