@@ -11,8 +11,48 @@ use Validator;
 class AuthController extends BaseController
 {
     /**
-     * Register API function
+     * Register a new user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
+    /**
+     * @OA\Post(
+     *      path="/auth/register",
+     *      operationId="Register",
+     *      tags={"Auth"},
+     *      summary="Register a new user",
+     *      description="Returns a new user",
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 example={"name": "a3fb6", "email": "Jessica Smith", "password": 12345678}
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     *  )
+     **/
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -36,7 +76,42 @@ class AuthController extends BaseController
     }
 
     /**
-     * Login API function
+     * Login user and create token
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    /**
+     * @OA\Post(
+     *     path="/auth/login",
+     *     operationId="Login",
+     *     tags={"Auth"},
+     *     summary="Login user and create token",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 example={"email": "jane@doe.nl", "password": 123456789}
+     *             )
+     *         )
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
      */
     public function login(Request $request)
     {
@@ -55,6 +130,27 @@ class AuthController extends BaseController
 
     /**
      * Logout API function
+     */
+    /**
+     * @OA\Post(
+     *     path="/auth/logout",
+     *     operationId="Logout",
+     *     tags={"Auth"},
+     *     summary="Logout user",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorised",
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *     ),
+     * )
      */
     public function logout(Request $request)
     {
