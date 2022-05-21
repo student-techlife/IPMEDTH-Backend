@@ -5,12 +5,13 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 use Auth;
 
 /**
- * @OA\Schema(required={"date", "patient_id"})
+ * @OA\Schema(required={"name", "email"})
  */
-class SessionRequest extends FormRequest
+class StorePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,14 +29,19 @@ class SessionRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(type="date", example="20-05-2022", description="Date the session will take place", property="date"),
-     * @OA\Property(type="integer", format="int64", example="1", description="ID of the patient linked to this session", property="patient_id"),
+     * @OA\Property(type="string", example="Jane", description="Name of the patient", property="name"),
+     * @OA\Property(type="date", example="1990-01-01", description="Birthday of patient", property="date_of_birth"),
+     * @OA\Property(type="email", example="jane@doe.com", description="Email of the patient", property="email"),
      */
     public function rules()
     {
         return [
-            'date' => 'required|date',
-            'patient_id' => 'required|exists:patients,id,'.$this->session->id,
+            'name' => 'required|string',
+            'date_of_birth' => 'date|nullable',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('patients', 'email')],
         ];
     }
 

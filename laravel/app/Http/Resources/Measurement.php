@@ -18,6 +18,7 @@ class Measurement extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'session_id' => $this->session_id,
+            'hand_type' => $this->hand_type,
             'finger_1' => $this->finger_1,
             'finger_2' => $this->finger_2,
             'finger_3' => $this->finger_3,

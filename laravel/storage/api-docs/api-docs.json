@@ -143,6 +143,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -162,7 +165,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MeasurementRequest"
+                                "$ref": "#/components/schemas/StoreMeasurementRequest"
                             }
                         }
                     }
@@ -170,6 +173,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation error"
@@ -202,6 +208,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -231,7 +240,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MeasurementRequest"
+                                "$ref": "#/components/schemas/UpdateMeasurementRequest"
                             }
                         }
                     }
@@ -239,6 +248,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -272,6 +284,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -294,6 +309,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -313,7 +331,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatientRequest"
+                                "$ref": "#/components/schemas/StorePatientRequest"
                             }
                         }
                     }
@@ -321,6 +339,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation error"
@@ -353,6 +374,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -382,7 +406,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PatientRequest"
+                                "$ref": "#/components/schemas/UpdatePatientRequest"
                             }
                         }
                     }
@@ -390,6 +414,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -423,6 +450,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -445,6 +475,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -464,7 +497,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/SessionRequest"
+                                "$ref": "#/components/schemas/StoreSessionRequest"
                             }
                         }
                     }
@@ -472,6 +505,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation error"
@@ -504,6 +540,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -533,7 +572,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/SessionRequest"
+                                "$ref": "#/components/schemas/UpdateSessionRequest"
                             }
                         }
                     }
@@ -541,6 +580,9 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -574,6 +616,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
                     "404": {
                         "description": "Resource not found"
                     }
@@ -588,7 +633,32 @@
     },
     "components": {
         "schemas": {
-            "MeasurementRequest": {
+            "RegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "Jane"
+                    },
+                    "email": {
+                        "description": "Email from the user",
+                        "type": "email",
+                        "example": "jane@doe.com"
+                    },
+                    "password": {
+                        "description": "The password you want to use",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreMeasurementRequest": {
                 "required": [
                     "session_id",
                     "hand_type",
@@ -638,7 +708,7 @@
                 },
                 "type": "object"
             },
-            "PatientRequest": {
+            "StorePatientRequest": {
                 "required": [
                     "name",
                     "email"
@@ -663,32 +733,103 @@
                 },
                 "type": "object"
             },
-            "RegisterRequest": {
+            "StoreSessionRequest": {
                 "required": [
-                    "name",
-                    "email",
-                    "password"
+                    "date",
+                    "patient_id"
                 ],
                 "properties": {
-                    "name": {
-                        "description": "Name of the user",
+                    "date": {
+                        "description": "Date the session will take place",
                         "type": "string",
-                        "example": "Jane"
+                        "format": "date",
+                        "example": "20-05-2022"
                     },
-                    "email": {
-                        "description": "Email from the user",
-                        "type": "email",
-                        "example": "jane@doe.com"
-                    },
-                    "password": {
-                        "description": "The password you want to use",
-                        "type": "string",
-                        "example": "password"
+                    "patient_id": {
+                        "description": "ID of the patient linked to this session",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
                     }
                 },
                 "type": "object"
             },
-            "SessionRequest": {
+            "UpdateMeasurementRequest": {
+                "required": [
+                    "session_id",
+                    "hand_type",
+                    "finger_1",
+                    "finger_2",
+                    "finger_3",
+                    "finger_4",
+                    "finger_5"
+                ],
+                "properties": {
+                    "session_id": {
+                        "description": "Session id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "hand_type": {
+                        "description": "hand_type",
+                        "type": "string",
+                        "example": "left"
+                    },
+                    "finger_1": {
+                        "description": "Thumb",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_2": {
+                        "description": "Index finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_3": {
+                        "description": "Middle finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_4": {
+                        "description": "Ring finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_5": {
+                        "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePatientRequest": {
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the patient",
+                        "type": "string",
+                        "example": "Jane"
+                    },
+                    "date_of_birth": {
+                        "description": "Birthday of patient",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "description": "Email of the patient",
+                        "type": "email",
+                        "example": "jane@doe.com"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateSessionRequest": {
                 "required": [
                     "date",
                     "patient_id"

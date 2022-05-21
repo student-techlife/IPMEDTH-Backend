@@ -6,11 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Auth;
 
 /**
- * @OA\Schema(required={"name", "email", "password"})
+ * @OA\Schema(required={"date", "patient_id"})
  */
-class RegisterRequest extends FormRequest
+class StoreSessionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +20,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -28,20 +29,16 @@ class RegisterRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(type="string", example="Jane", description="Name of the user", property="name"),
-     * @OA\Property(type="email", example="jane@doe.com", description="Email from the user", property="email"),
-     * @OA\Property(type="string", example="password", description="The password you want to use", property="password"),
+     * @OA\Property(type="date", example="20-05-2022", description="Date the session will take place", property="date"),
+     * @OA\Property(type="integer", format="int64", example="1", description="ID of the patient linked to this session", property="patient_id"),
      */
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => [
+            'date' => 'required|date',
+            'patient_id' => [
                 'required',
-                'email',
-                Rule::unique('users')
-            ],
-            'password' => 'required|string|min:6',
+                Rule::exists('patients', 'id')],
         ];
     }
 

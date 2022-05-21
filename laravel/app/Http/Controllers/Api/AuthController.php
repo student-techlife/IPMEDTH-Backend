@@ -52,6 +52,7 @@ class AuthController extends BaseController
         $success['token'] = $user->createToken('ipmedth')->plainTextToken;
         $success['token_type'] = 'Bearer';
         $success['name'] = $user->name;
+        $success['email'] = $user->email;
 
         return $this->sendResponse($success, 'User register successfully.');
     }

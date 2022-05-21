@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Patient as PatientResource;
-use App\Http\Requests\PatientRequest;
+use App\Http\Requests\UpdatePatientRequest;
+use App\Http\Requests\StorePatientRequest;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use Validator;
@@ -25,8 +26,12 @@ class PatientController extends BaseController
      *     description="Returns all patients",
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
      *     ),
      * )
      */
@@ -55,7 +60,7 @@ class PatientController extends BaseController
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
-     *                 ref="#/components/schemas/PatientRequest",
+     *                 ref="#/components/schemas/StorePatientRequest",
      *             )
      *         )
      *      ),
@@ -64,14 +69,18 @@ class PatientController extends BaseController
      *          description="Successful operation",
      *      ),
      *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
      *          response=422,
      *          description="Validation error",
      *      ),
      * )
      */
-    public function store(PatientRequest $request)
+    public function store(StorePatientRequest $request)
     {
-        $patient = Patient::create($request->all());
+        $patient = Patient::create($request->validated());
         return $this->sendResponse(new PatientResource($patient), 'Patient created successfully.');
     }
 
@@ -96,12 +105,16 @@ class PatientController extends BaseController
      *         required=true,
      *     ),
      *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
+     *         response=200,
+     *         description="Successful operation",
      *     ),
      *     @OA\Response(
-     *          response=404,
-     *          description="Resource not found",
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
      *     ),
      * )
      */
@@ -140,13 +153,17 @@ class PatientController extends BaseController
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
-     *                 ref="#/components/schemas/PatientRequest",
+     *                 ref="#/components/schemas/UpdatePatientRequest",
      *             )
      *         )
      *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
      *      ),
      *      @OA\Response(
      *          response=404,
@@ -158,9 +175,9 @@ class PatientController extends BaseController
      *      ),
      * )
      */
-    public function update(PatientRequest $request, Patient $patient)
+    public function update(UpdatePatientRequest $request, Patient $patient)
     {
-        $patient->update($request->all());
+        $patient->update($request->validated());
         return $this->sendResponse(new PatientResource($patient), 'Patient updated successfully.');
     }
 
@@ -187,6 +204,10 @@ class PatientController extends BaseController
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
      *     ),
      *     @OA\Response(
      *          response=404,

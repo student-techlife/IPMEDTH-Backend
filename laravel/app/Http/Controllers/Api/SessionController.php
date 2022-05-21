@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Session as SessionResource;
-use App\Http\Requests\SessionRequest;
+use App\Http\Requests\UpdateSessionRequest;
+use App\Http\Requests\StoreSessionRequest;
 use Illuminate\Http\Request;
 use App\Models\Session;
 use Validator;
@@ -25,8 +26,12 @@ class SessionController extends BaseController
      *     description="Returns all sessions",
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
      *     ),
      * )
      */
@@ -55,7 +60,7 @@ class SessionController extends BaseController
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
-     *                 ref="#/components/schemas/SessionRequest",
+     *                 ref="#/components/schemas/StoreSessionRequest",
      *             )
      *         )
      *      ),
@@ -64,21 +69,22 @@ class SessionController extends BaseController
      *          description="Successful operation",
      *      ),
      *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
      *          response=422,
      *          description="Validation error",
      *      ),
      * )
      */
-    public function store(SessionRequest $request)
+    public function store(StoreSessionRequest $request)
     {
         // Store a new session instance
-        $session = new Session();
-        $session->date = $request->date;
-        $session->user_id = $request->user()->id;
-        $session->patient_id = $request->patient_id;
-
-        $session->save();
-
+        $session = Session::create(array_merge(
+            $request->validated(),
+            ['user_id' => auth()->id()]
+        ));
         return $this->sendResponse(new SessionResource($session), 'Session created successfully.');
     }
 
@@ -103,12 +109,16 @@ class SessionController extends BaseController
      *         required=true,
      *     ),
      *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
+     *         response=200,
+     *         description="Successful operation",
      *     ),
      *     @OA\Response(
-     *          response=404,
-     *          description="Resource not found",
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
      *     ),
      * )
      */
@@ -125,7 +135,7 @@ class SessionController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Session  $session
      * @return \Illuminate\Http\Response
      */
     /**
@@ -147,13 +157,17 @@ class SessionController extends BaseController
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
-     *                 ref="#/components/schemas/SessionRequest",
+     *                 ref="#/components/schemas/UpdateSessionRequest",
      *             )
      *         )
      *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
      *      ),
      *      @OA\Response(
      *          response=404,
@@ -165,9 +179,9 @@ class SessionController extends BaseController
      *      ),
      * )
      */
-    public function update(SessionRequest $request, Session $session)
+    public function update(UpdateSessionRequest $request, Session $session)
     {
-        $session->update($request->all());
+        $session->update($request->validated());
         return $this->sendResponse(new SessionResource($session), 'Session updated successfully.');
     }
 
@@ -192,12 +206,16 @@ class SessionController extends BaseController
      *         required=true,
      *     ),
      *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
+     *         response=200,
+     *         description="Successful operation",
      *     ),
      *     @OA\Response(
-     *          response=404,
-     *          description="Resource not found",
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
      *     ),
      * )
      */

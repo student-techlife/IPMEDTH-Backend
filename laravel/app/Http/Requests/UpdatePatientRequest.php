@@ -6,11 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Auth;
 
 /**
- * @OA\Schema(required={"name", "email", "password"})
+ * @OA\Schema(required={"name", "email"})
  */
-class RegisterRequest extends FormRequest
+class UpdatePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +20,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -28,20 +29,19 @@ class RegisterRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(type="string", example="Jane", description="Name of the user", property="name"),
-     * @OA\Property(type="email", example="jane@doe.com", description="Email from the user", property="email"),
-     * @OA\Property(type="string", example="password", description="The password you want to use", property="password"),
+     * @OA\Property(type="string", example="Jane", description="Name of the patient", property="name"),
+     * @OA\Property(type="date", example="1990-01-01", description="Birthday of patient", property="date_of_birth"),
+     * @OA\Property(type="email", example="jane@doe.com", description="Email of the patient", property="email"),
      */
     public function rules()
     {
         return [
             'name' => 'required|string',
+            'date_of_birth' => 'date|nullable',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')
-            ],
-            'password' => 'required|string|min:6',
+                Rule::unique('patients', 'email')->ignore($this->patient)],
         ];
     }
 
