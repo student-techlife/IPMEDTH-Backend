@@ -28,9 +28,9 @@ class PatientRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(format="string", default="Jane", description="name", property="name"),
-     * @OA\Property(format="date", default="1990-01-01", description="birthdate", property="date_of_birth"),
-     * @OA\Property(format="email", default="jane@doe.com", description="email", property="email"),
+     * @OA\Property(type="string", example="Jane", description="Name of the patient", property="name"),
+     * @OA\Property(type="date", example="1990-01-01", description="Birthday of patient", property="date_of_birth"),
+     * @OA\Property(type="email", example="jane@doe.com", description="Email of the patient", property="email"),
      */
     public function rules()
     {

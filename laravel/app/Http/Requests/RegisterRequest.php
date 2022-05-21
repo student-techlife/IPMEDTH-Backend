@@ -27,9 +27,9 @@ class RegisterRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(format="string", default="Jaane", description="name", property="name"),
-     * @OA\Property(format="email", default="jane@doe.com", description="email", property="email"),
-     * @OA\Property(format="string", default="password", description="password", property="password"),
+     * @OA\Property(type="string", example="Jane", description="Name of the user", property="name"),
+     * @OA\Property(type="email", example="jane@doe.com", description="Email from the user", property="email"),
+     * @OA\Property(type="string", example="password", description="The password you want to use", property="password"),
      */
     public function rules()
     {

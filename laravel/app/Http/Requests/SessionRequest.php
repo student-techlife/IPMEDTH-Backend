@@ -28,8 +28,8 @@ class SessionRequest extends FormRequest
      * @return array<string, mixed>
      */
     /**
-     * @OA\Property(format="date", default="20-05-2022", description="date", property="date"),
-     * @OA\Property(format="int", default="1", description="patien_id", property="patient_id"),
+     * @OA\Property(type="date", example="20-05-2022", description="Date the session will take place", property="date"),
+     * @OA\Property(type="integer", format="int64", example="1", description="ID of the patient linked to this session", property="patient_id"),
      */
     public function rules()
     {
