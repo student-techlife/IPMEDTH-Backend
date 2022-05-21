@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Patient as PatientResource;
+use App\Http\Requests\UpdatePatientRequest;
+use App\Http\Requests\StorePatientRequest;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use Validator;
@@ -14,6 +16,24 @@ class PatientController extends BaseController
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Get(
+     *     path="/patients",
+     *     operationId="GetPatients",
+     *     tags={"Patients"},
+     *     summary="Get all patients",
+     *     description="Returns all patients",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     * )
      */
     public function index()
     {
@@ -27,17 +47,40 @@ class PatientController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /**
+     * @OA\Post(
+     *     path="/patients",
+     *     operationId="CreatePatient",
+     *     tags={"Patients"},
+     *     summary="Create a new patient",
+     *     description="Returns a new patient",
+     *     security={ {"sanctum": {} }},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/StorePatientRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function store(StorePatientRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'date_of_birth' => 'date|nullable',
-            'email' => 'required|email|unique:patients,email',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-        $patient = Patient::create($request->all());
+        $patient = Patient::create($request->validated());
         return $this->sendResponse(new PatientResource($patient), 'Patient created successfully.');
     }
 
@@ -46,6 +89,34 @@ class PatientController extends BaseController
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Get(
+     *     path="/patients/{id}",
+     *     operationId="GetPatient",
+     *     tags={"Patients"},
+     *     summary="Get a patient",
+     *     description="Returns a patient",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Patient id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
+     *     ),
+     * )
      */
     public function show($id)
     {
@@ -60,33 +131,93 @@ class PatientController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Patient  $patient
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    /**
+     * @OA\Put(
+     *     path="/patients/{id}",
+     *     operationId="UpdatePatient",
+     *     tags={"Patients"},
+     *     summary="Update a patient",
+     *     description="Update a patient",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Patient id",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/UpdatePatientRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function update(UpdatePatientRequest $request, Patient $patient)
     {
-        // Validation
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'date_of_birth' => 'date|nullable',
-            'email' => 'required|email|unique:patients,email,'.$patient->id,
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
-        $patient->update($request->all());
+        $patient->update($request->validated());
         return $this->sendResponse(new PatientResource($patient), 'Patient updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Patient  $patient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Patient $patient)
+    /**
+     * @OA\Delete(
+     *     path="/patients/{id}",
+     *     operationId="DeletePatient",
+     *     tags={"Patients"},
+     *     summary="Delete a patient",
+     *     description="Delete a patient",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Patient id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *     ),
+     * )
+     */
+    public function destroy($id)
     {
+        $patient = Patient::find($id);
         if (is_null($patient)) {
             return $this->sendError('Patient not found.');
         }

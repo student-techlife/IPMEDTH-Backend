@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Measurement as MeasurementResource;
+use App\Http\Requests\StoreMeasurementRequest;
+use App\Http\Requests\UpdateMeasurementRequest;
 use Illuminate\Http\Request;
 use App\Models\Measurement;
 use App\Models\Session;
@@ -15,6 +17,24 @@ class MeasurementController extends BaseController
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Get(
+     *     path="/measurements",
+     *     operationId="GetMeasurements",
+     *     tags={"Measurements"},
+     *     summary="Get all measurements",
+     *     description="Returns all measurements",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     * )
      */
     public function index()
     {
@@ -28,33 +48,44 @@ class MeasurementController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /**
+     * @OA\Post(
+     *     path="/measurements",
+     *     operationId="CreateMeasurement",
+     *     tags={"Measurements"},
+     *     summary="Create a new measurement",
+     *     description="Returns a new measurement",
+     *     security={ {"sanctum": {} }},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/StoreMeasurementRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function store(StoreMeasurementRequest $request)
     {
-        // Validate the request
-        $validator = Validator::make($request->all(), [
-            'finger_1' => 'required|json',
-            'finger_2' => 'required|json',
-            'finger_3' => 'required|json',
-            'finger_4' => 'required|json',
-            'finger_5' => 'required|json',
-            'session_id' => 'required|exists:sessions,id',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
         // Create new measurement instance
-        $measurement = new Measurement();
-        $measurement->user_id = $request->user()->id;
-        $measurement->session_id = $request->session_id;
-        $measurement->finger_1 = $request->finger_1;
-        $measurement->finger_2 = $request->finger_2;
-        $measurement->finger_3 = $request->finger_3;
-        $measurement->finger_4 = $request->finger_4;
-        $measurement->finger_5 = $request->finger_5;
-
-        $measurement->save();
-
+        $measurement = Measurement::create(array_merge(
+            $request->validated(),
+            ['user_id' => auth()->id()]
+        ));
         return $this->sendResponse(new MeasurementResource($measurement), 'Measurement created successfully.');
     }
 
@@ -63,6 +94,34 @@ class MeasurementController extends BaseController
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Get(
+     *     path="/measurements/{id}",
+     *     operationId="GetMeasurement",
+     *     tags={"Measurements"},
+     *     summary="Get a measurement",
+     *     description="Returns a measurement",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Measurement id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
+     *     ),
+     * )
      */
     public function show($id)
     {
@@ -77,31 +136,53 @@ class MeasurementController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Measurement  $measurement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /**
+     * @OA\Put(
+     *     path="/measurements/{id}",
+     *     operationId="UpdateMeasurement",
+     *     tags={"Measurements"},
+     *     summary="Update a measurement",
+     *     description="Returns updated measurement",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Measurement id",
+     *         required=true,
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/UpdateMeasurementRequest",
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource not found",
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *      ),
+     * )
+     */
+    public function update(UpdateMeasurementRequest $request, Measurement $measurement)
     {
-        // Get the measurement instance
-        $measurement = Measurement::find($id);
-        if (is_null($measurement)) {
-            return $this->sendError('Measurement not found.');
-        }
-
-        // Validate the request
-        $validator = Validator::make($request->all(), [
-            'finger_1' => 'required|json',
-            'finger_2' => 'required|json',
-            'finger_3' => 'required|json',
-            'finger_4' => 'required|json',
-            'finger_5' => 'required|json',
-            'session_id' => 'required|exists:sessions,id',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(), 422);
-        }
-
-        $measurement->update($request->all());
+        $measurement->update($request->validated());
         return $this->sendResponse(new MeasurementResource($measurement), 'Measurement updated successfully.');
     }
 
@@ -110,6 +191,34 @@ class MeasurementController extends BaseController
      *
      * @param  \App\Models\Measurement  $measurement
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Delete(
+     *     path="/measurements/{id}",
+     *     operationId="DeleteMeasurement",
+     *     tags={"Measurements"},
+     *     summary="Delete a measurement",
+     *     description="Returns deleted measurement",
+     *     security={ {"sanctum": {} }},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="query",
+     *         description="Measurement id",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource not found",
+     *     ),
+     * )
      */
     public function destroy(Measurement $measurement)
     {

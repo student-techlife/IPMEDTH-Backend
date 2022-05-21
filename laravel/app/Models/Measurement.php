@@ -16,6 +16,7 @@ class Measurement extends Model
      */
     protected $fillable = [
         'user_id',
+        'hand_type',
         'session_id',
         'finger_1',
         'finger_2',

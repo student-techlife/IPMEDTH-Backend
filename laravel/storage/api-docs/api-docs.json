@@ -1,0 +1,881 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Project OpenApi Documentation",
+        "description": "This page describes the API documentation of the IPMEDTH project for Revalidatie Friesland",
+        "contact": {
+            "email": "info@ipmedth.nl"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://ipmedth.nl/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "description": "Returns a new user",
+                "operationId": "Register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user and create token",
+                "description": "Login user and return a token",
+                "operationId": "Login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "jane@doe.nl",
+                                    "password": 123456789
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "description": "Returns a message",
+                "operationId": "Logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get authenticated user info",
+                "description": "Returns a user",
+                "operationId": "GetUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/measurements": {
+            "get": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Get all measurements",
+                "description": "Returns all measurements",
+                "operationId": "GetMeasurements",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Create a new measurement",
+                "description": "Returns a new measurement",
+                "operationId": "CreateMeasurement",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreMeasurementRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/measurements/{id}": {
+            "get": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Get a measurement",
+                "description": "Returns a measurement",
+                "operationId": "GetMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Update a measurement",
+                "description": "Returns updated measurement",
+                "operationId": "UpdateMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateMeasurementRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Delete a measurement",
+                "description": "Returns deleted measurement",
+                "operationId": "DeleteMeasurement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Measurement id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/patients": {
+            "get": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Get all patients",
+                "description": "Returns all patients",
+                "operationId": "GetPatients",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Create a new patient",
+                "description": "Returns a new patient",
+                "operationId": "CreatePatient",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePatientRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/patients/{id}": {
+            "get": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Get a patient",
+                "description": "Returns a patient",
+                "operationId": "GetPatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Update a patient",
+                "description": "Update a patient",
+                "operationId": "UpdatePatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePatientRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Patients"
+                ],
+                "summary": "Delete a patient",
+                "description": "Delete a patient",
+                "operationId": "DeletePatient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Patient id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/sessions": {
+            "get": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Get all sessions",
+                "description": "Returns all sessions",
+                "operationId": "GetSessions",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Create a new session",
+                "description": "Returns a new session",
+                "operationId": "CreateSession",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreSessionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/sessions/{id}": {
+            "get": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Get a session",
+                "description": "Returns a session",
+                "operationId": "GetSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Update a session",
+                "description": "Update a session",
+                "operationId": "UpdateSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateSessionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Sessions"
+                ],
+                "summary": "Delete a session",
+                "description": "Delete a session",
+                "operationId": "DeleteSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Session id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the user",
+                        "type": "string",
+                        "example": "Jane"
+                    },
+                    "email": {
+                        "description": "Email from the user",
+                        "type": "email",
+                        "example": "jane@doe.com"
+                    },
+                    "password": {
+                        "description": "The password you want to use",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreMeasurementRequest": {
+                "required": [
+                    "session_id",
+                    "hand_type",
+                    "finger_1",
+                    "finger_2",
+                    "finger_3",
+                    "finger_4",
+                    "finger_5"
+                ],
+                "properties": {
+                    "session_id": {
+                        "description": "Session id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "hand_type": {
+                        "description": "hand_type",
+                        "type": "string",
+                        "example": "left"
+                    },
+                    "finger_1": {
+                        "description": "Thumb",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_2": {
+                        "description": "Index finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_3": {
+                        "description": "Middle finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_4": {
+                        "description": "Ring finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_5": {
+                        "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePatientRequest": {
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the patient",
+                        "type": "string",
+                        "example": "Jane"
+                    },
+                    "date_of_birth": {
+                        "description": "Birthday of patient",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "description": "Email of the patient",
+                        "type": "email",
+                        "example": "jane@doe.com"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreSessionRequest": {
+                "required": [
+                    "date",
+                    "patient_id"
+                ],
+                "properties": {
+                    "date": {
+                        "description": "Date the session will take place",
+                        "type": "string",
+                        "format": "date",
+                        "example": "20-05-2022"
+                    },
+                    "patient_id": {
+                        "description": "ID of the patient linked to this session",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateMeasurementRequest": {
+                "required": [
+                    "session_id",
+                    "hand_type",
+                    "finger_1",
+                    "finger_2",
+                    "finger_3",
+                    "finger_4",
+                    "finger_5"
+                ],
+                "properties": {
+                    "session_id": {
+                        "description": "Session id",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "hand_type": {
+                        "description": "hand_type",
+                        "type": "string",
+                        "example": "left"
+                    },
+                    "finger_1": {
+                        "description": "Thumb",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_2": {
+                        "description": "Index finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_3": {
+                        "description": "Middle finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_4": {
+                        "description": "Ring finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "finger_5": {
+                        "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePatientRequest": {
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the patient",
+                        "type": "string",
+                        "example": "Jane"
+                    },
+                    "date_of_birth": {
+                        "description": "Birthday of patient",
+                        "type": "string",
+                        "format": "date",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "description": "Email of the patient",
+                        "type": "email",
+                        "example": "jane@doe.com"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateSessionRequest": {
+                "required": [
+                    "date",
+                    "patient_id"
+                ],
+                "properties": {
+                    "date": {
+                        "description": "Date the session will take place",
+                        "type": "string",
+                        "format": "date",
+                        "example": "20-05-2022"
+                    },
+                    "patient_id": {
+                        "description": "ID of the patient linked to this session",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "API Eindpoints for Authentication"
+        },
+        {
+            "name": "Patients",
+            "description": "API Endpoints for Patients"
+        },
+        {
+            "name": "Sessions",
+            "description": "API Endpoints for Sessions"
+        },
+        {
+            "name": "Measurements",
+            "description": "API Endpoints for Measurements"
+        }
+    ]
+}
