@@ -51,6 +51,7 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client \
     iputils-ping \
     libonig-dev \
+    libzip-dev \
     libpng-dev \
     libjpeg-dev
 
@@ -67,7 +68,7 @@ RUN pecl install imagick && \
     docker-php-ext-enable imagick
 
 # Install extensions
-RUN docker-php-ext-install mbstring pdo pdo_mysql
+RUN docker-php-ext-install mbstring pdo pdo_mysql pcntl zip
 
 COPY --from=backend /app /var/www
 COPY --from=frontend /app/node_modules /var/www/node_modules
