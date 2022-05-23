@@ -661,7 +661,9 @@
             "StoreMeasurementRequest": {
                 "required": [
                     "session_id",
+                    "hand_view",
                     "hand_type",
+                    "hand_score",
                     "finger_1",
                     "finger_2",
                     "finger_3",
@@ -676,9 +678,20 @@
                         "example": 1
                     },
                     "hand_type": {
-                        "description": "hand_type",
+                        "description": "The hand that was photographed",
                         "type": "string",
                         "example": "left"
+                    },
+                    "hand_view": {
+                        "description": "What angle was the photo taken from",
+                        "type": "string",
+                        "example": "thumb_side"
+                    },
+                    "hand_score": {
+                        "description": "The score of the hand",
+                        "type": "number",
+                        "format": "float",
+                        "example": 0.85
                     },
                     "finger_1": {
                         "description": "Thumb",
@@ -757,7 +770,9 @@
             "UpdateMeasurementRequest": {
                 "required": [
                     "session_id",
+                    "hand_view",
                     "hand_type",
+                    "hand_score",
                     "finger_1",
                     "finger_2",
                     "finger_3",
@@ -772,9 +787,20 @@
                         "example": 1
                     },
                     "hand_type": {
-                        "description": "hand_type",
+                        "description": "The hand that was photographed",
                         "type": "string",
                         "example": "left"
+                    },
+                    "hand_view": {
+                        "description": "What angle was the photo taken from",
+                        "type": "string",
+                        "example": "thumb_side"
+                    },
+                    "hand_score": {
+                        "description": "The score of the hand",
+                        "type": "number",
+                        "format": "float",
+                        "example": 0.85
                     },
                     "finger_1": {
                         "description": "Thumb",
