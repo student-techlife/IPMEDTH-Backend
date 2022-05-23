@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
+            $table->enum('hand_view', ['thumb_side', 'pink_side', 'finger_side', 'back_side']);
             $table->enum('hand_type', ['left', 'right']);
+            $table->float('hand_score');
             $table->json('finger_1');
             $table->json('finger_2');
             $table->json('finger_3');

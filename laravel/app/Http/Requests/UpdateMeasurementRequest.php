@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 
 /**
- * @OA\Schema(required={"session_id", "hand_type", "finger_1", "finger_2", "finger_3", "finger_4", "finger_5"})
+ * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_1", "finger_2", "finger_3", "finger_4", "finger_5"})
  */
 class UpdateMeasurementRequest extends FormRequest
 {
@@ -30,7 +30,9 @@ class UpdateMeasurementRequest extends FormRequest
      */
     /**
      * @OA\Property(type="integer", format="int64", example=1, description="Session id", property="session_id")
-     * @OA\Property(type="string", example="left", description="hand_type", property="hand_type"),
+     * @OA\Property(type="string", example="left", description="The hand that was photographed", property="hand_type"),
+     * @OA\Property(type="string", example="thumb_side", description="What angle was the photo taken from", property="hand_view"),
+     * @OA\Property(type="number", format="float", example=0.85, description="The score of the hand", property="hand_score"),
      * @OA\Property(type="string", example="{}", description="Thumb", property="finger_1"),
      * @OA\Property(type="string", example="{}", description="Index finger", property="finger_2"),
      * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_3"),
@@ -44,6 +46,10 @@ class UpdateMeasurementRequest extends FormRequest
                 'required',
                 Rule::exists('sessions', 'id')],
             'hand_type' => 'required|in:left,right',
+            'hand_view' => [
+                'required',
+                Rule::in(['thumb_side', 'pink_side', 'finger_side', 'back_side'])],
+            'hand_score' => 'required|numeric|min:0|max:1',
             'finger_1' => 'required|json',
             'finger_2' => 'required|json',
             'finger_3' => 'required|json',
@@ -61,6 +67,7 @@ class UpdateMeasurementRequest extends FormRequest
     {
         return [
             'hand_type.in' => 'The selected hand type is invalid, choose between left or right.',
+            'hand_view.in' => 'The selected hand view is invalid, choose between thumb_side, pink_side, finger_side or back_side.',
         ];
     }
 
