@@ -19,22 +19,22 @@ use App\Http\Controllers\Api;
 /*
 * Routes for authentication
 */
-Route::controller(Api\AuthController::class)->prefix('auth')->group(function() {
-    Route::post('register', 'register');
-    Route::post('login', 'login');
+Route::controller(Api\AuthController::class)->as('api.auth.')->prefix('auth')->group(function() {
+    Route::post('register', 'register')->name('register');
+    Route::post('login', 'login')->name('login');
     Route::middleware('auth:sanctum')->group(function() {
-        Route::post('logout', 'logout');
-        Route::get('user', 'getAuthenticatedUser');
+        Route::post('logout', 'logout')->name('logout');
+        Route::get('user', 'getAuthenticatedUser')->name('user');
     });
 });
 
 /*
 * Protected routes
 */
-Route::middleware('auth:sanctum')->group( function () {
-    Route::apiResource('patients', Api\PatientController::class);
-    Route::apiResource('measurements', Api\MeasurementController::class);
-    Route::apiResource('sessions', Api\SessionController::class);
+Route::middleware('auth:sanctum')->as('api.')->group( function () {
+    Route::apiResource('patients', Api\PatientController::class)->names('patients');
+    Route::apiResource('measurements', Api\MeasurementController::class)->names('measurements');
+    Route::apiResource('sessions', Api\SessionController::class)->names('sessions');
 });
 
 /**
