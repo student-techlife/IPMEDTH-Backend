@@ -35,7 +35,7 @@ RUN npm install
 ####################
 # Build the image
 ####################
-FROM php:8-fpm
+FROM php:8-fpm-buster
 
 # Set working directory
 WORKDIR /var/www
