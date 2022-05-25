@@ -33,33 +33,6 @@ class AuthTest extends TestCase
     }
 
     /**
-     * Test validation on register.
-     *
-     * @return void
-     */
-    public function test_validation_user_register()
-    {
-        // User's data
-        $data = [
-            'email' => 'test',
-            'name' => '',
-            'password' => '123',
-        ];
-        // Send post request
-        $response = $this->json('POST', route('api.auth.register'), $data);
-        $response->assertStatus(422)
-            ->assertJson([
-                'success' => false,
-                'message' => 'Validation Error.',
-                'details' => [
-                    'email' => ['The email must be a valid email address.'],
-                    'name' => ['The name field is required.'],
-                    'password' => ['The password must be at least 6 characters.'],
-                ],
-            ]);
-    }
-
-    /**
      * Test if you can login a user.
      *
      * @return void
@@ -80,28 +53,6 @@ class AuthTest extends TestCase
                 'message' => 'User logged in successfully.',
             ]);
         $this->assertAuthenticated();
-    }
-
-    /**
-     * Test login validation with wrong credentials.
-     *
-     * @return void
-     */
-    public function test_validation_login_wrong_credentials()
-    {
-        $user = User::factory()->create();
-        $data = [
-            'email' => $user->email,
-            'password' => 'wrongpassword',
-        ];
-        // Send post request
-        $response = $this->json('POST', route('api.auth.login'), $data);
-        $response->assertStatus(401)
-            ->assertJson([
-                'success' => false,
-                'message' => 'These credentials do not match our records.',
-            ]);
-        $this->assertGuest();
     }
 
     /**
@@ -147,5 +98,55 @@ class AuthTest extends TestCase
                 ],
                 'message' => 'User info retrieved successfully.',
             ]);
+    }
+
+    /**
+     * Test validation on register.
+     *
+     * @return void
+     */
+    public function test_validation_user_register()
+    {
+        // User's data
+        $data = [
+            'email' => 'test',
+            'name' => '',
+            'password' => '123',
+        ];
+        // Send post request
+        $response = $this->json('POST', route('api.auth.register'), $data);
+        $response->assertStatus(422)
+            ->assertJson([
+                'success' => false,
+                'message' => 'Validation Error.',
+                'details' => [
+                    'email' => ['The email must be a valid email address.'],
+                    'name' => ['The name field is required.'],
+                    'password' => ['The password must be at least 6 characters.'],
+                ],
+            ]);
+    }
+
+    /**
+     * Test login validation with wrong credentials.
+     *
+     * @return void
+     */
+    public function test_validation_login_wrong_credentials()
+    {
+        $user = User::factory()->create();
+        $data = [
+            'email' => $user->email,
+            'password' => 'wrongpassword',
+        ];
+        // Send post request
+        $response = $this->json('POST', route('api.auth.login'), $data);
+        $response->assertStatus(401)
+            ->assertUnauthorized()
+            ->assertJson([
+                'success' => false,
+                'message' => 'These credentials do not match our records.',
+            ]);
+        $this->assertGuest();
     }
 }
