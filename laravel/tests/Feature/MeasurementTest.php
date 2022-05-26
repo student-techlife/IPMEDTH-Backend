@@ -101,6 +101,7 @@ class MeasurementTest extends TestCase
         ]);
 
         $data = [
+            'id' => 1,
             'session_id' => $session->id,
             'hand_type' => 'left',
             'hand_view' => 'thumb_side',
@@ -120,7 +121,7 @@ class MeasurementTest extends TestCase
                 'success' => true,
                 'data' => [
                     'id' => 1,
-                    'user_id' => 1,
+                    'user_id' => $user->id,
                     'session_id' => $session->id,
                     'hand_type' => 'left',
                     'hand_view' => 'thumb_side',
@@ -156,7 +157,8 @@ class MeasurementTest extends TestCase
         ]);
 
         $data = [
-            'session_id' => 2,
+            'id' => $measurement->id,
+            'session_id' => $sessions[1]->id,
             'hand_type' => 'right',
             'hand_view' => 'pink_side',
             'hand_score' => '0.55',
@@ -174,9 +176,9 @@ class MeasurementTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
-                    'user_id' => 1,
-                    'session_id' => 2,
+                    'id' => $measurement->id,
+                    'user_id' => $user->id,
+                    'session_id' => $sessions[1]->id,
                     'hand_type' => 'right',
                     'hand_view' => 'pink_side',
                     'hand_score' => '0.55',

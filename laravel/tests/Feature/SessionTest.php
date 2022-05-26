@@ -90,6 +90,7 @@ class SessionTest extends TestCase
         $patient = Patient::factory()->create();
 
         $data = [
+            'id' => 1,
             'date' => '01-01-2021',
             'patient_id' => $patient->id,
         ];

@@ -60,7 +60,7 @@ class PatientTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
+                    'id' => $patient->id,
                     'name' => $patient->name,
                     'date_of_birth' => $patient->date_of_birth->format('d-m-Y'),
                     'email' => $patient->email,
@@ -84,6 +84,7 @@ class PatientTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         $data = [
+            'id' => 1,
             'name' => 'New Patient',
             'date_of_birth' => '01-01-2002',
             'email' => 'test@ipmedth.nl',
