@@ -23,7 +23,7 @@ class Measurement extends Model
         'finger_thumb',
         'finger_index',
         'finger_middle',
-        'finger_4',
+        'finger_ring',
         'finger_5',
     ];
 

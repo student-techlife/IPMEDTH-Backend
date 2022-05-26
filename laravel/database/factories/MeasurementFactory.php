@@ -27,7 +27,7 @@ class MeasurementFactory extends Factory
             'finger_thumb' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_index' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_middle' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
-            'finger_4' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
+            'finger_ring' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_5' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
         ];
     }

@@ -107,7 +107,7 @@ class MeasurementTest extends TestCase
             'finger_thumb' => '{"finger_thumb": "blabla"}',
             'finger_index' => '{"finger_index": "blabla"}',
             'finger_middle' => '{"finger_middle": "blabla"}',
-            'finger_4' => '{"finger_4": "blabla"}',
+            'finger_ring' => '{"finger_ring": "blabla"}',
             'finger_5' => '{"finger_5": "blabla"}',
         ];
 
@@ -162,7 +162,7 @@ class MeasurementTest extends TestCase
             'finger_thumb' => '{"finger_thumb": "working"}',
             'finger_index' => '{"finger_index": "blabla"}',
             'finger_middle' => '{"finger_middle": "blabla"}',
-            'finger_4' => '{"finger_4": "blabla"}',
+            'finger_ring' => '{"finger_ring": "blabla"}',
             'finger_5' => '{"finger_5": "blabla"}',
         ];
 

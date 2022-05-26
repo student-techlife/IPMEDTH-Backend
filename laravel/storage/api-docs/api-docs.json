@@ -667,7 +667,7 @@
                     "finger_thumb",
                     "finger_index",
                     "finger_middle",
-                    "finger_4",
+                    "finger_ring",
                     "finger_5"
                 ],
                 "properties": {
@@ -708,7 +708,7 @@
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_4": {
+                    "finger_ring": {
                         "description": "Ring finger",
                         "type": "string",
                         "example": "{}"
@@ -776,7 +776,7 @@
                     "finger_thumb",
                     "finger_index",
                     "finger_middle",
-                    "finger_4",
+                    "finger_ring",
                     "finger_5"
                 ],
                 "properties": {
@@ -817,7 +817,7 @@
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_4": {
+                    "finger_ring": {
                         "description": "Ring finger",
                         "type": "string",
                         "example": "{}"
