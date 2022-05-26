@@ -104,7 +104,7 @@ class MeasurementTest extends TestCase
             'hand_type' => 'left',
             'hand_view' => 'thumb_side',
             'hand_score' => '0.85',
-            'finger_1' => '{"finger_1": "blabla"}',
+            'finger_thumb' => '{"finger_thumb": "blabla"}',
             'finger_2' => '{"finger_2": "blabla"}',
             'finger_3' => '{"finger_3": "blabla"}',
             'finger_4' => '{"finger_4": "blabla"}',
@@ -123,7 +123,7 @@ class MeasurementTest extends TestCase
                     'hand_type' => 'left',
                     'hand_view' => 'thumb_side',
                     'hand_score' => '0.85',
-                    'finger_1' => '{"finger_1": "blabla"}',
+                    'finger_thumb' => '{"finger_thumb": "blabla"}',
                 ],
                 'message' => 'Measurement created successfully.',
             ]);
@@ -159,7 +159,7 @@ class MeasurementTest extends TestCase
             'hand_type' => 'right',
             'hand_view' => 'pink_side',
             'hand_score' => '0.55',
-            'finger_1' => '{"finger_1": "working"}',
+            'finger_thumb' => '{"finger_thumb": "working"}',
             'finger_2' => '{"finger_2": "blabla"}',
             'finger_3' => '{"finger_3": "blabla"}',
             'finger_4' => '{"finger_4": "blabla"}',
@@ -179,7 +179,7 @@ class MeasurementTest extends TestCase
                     'hand_type' => 'right',
                     'hand_view' => 'pink_side',
                     'hand_score' => '0.55',
-                    'finger_1' => '{"finger_1": "working"}',
+                    'finger_thumb' => '{"finger_thumb": "working"}',
                 ],
                 'message' => 'Measurement updated successfully.',
             ]);
@@ -243,7 +243,7 @@ class MeasurementTest extends TestCase
             'hand_type' => 'up',
             'hand_view' => 'side',
             'hand_score' => '4',
-            'finger_1' => '{"finger_1": "blabla"}',
+            'finger_thumb' => '{"finger_thumb": "blabla"}',
         ];
 
         // Send post request

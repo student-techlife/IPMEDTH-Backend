@@ -21,7 +21,7 @@ class Measurement extends JsonResource
             'hand_type' => $this->hand_type,
             'hand_view' => $this->hand_view,
             'hand_score' => $this->hand_score,
-            'finger_1' => $this->finger_1,
+            'finger_thumb' => $this->finger_thumb,
             'finger_2' => $this->finger_2,
             'finger_3' => $this->finger_3,
             'finger_4' => $this->finger_4,
