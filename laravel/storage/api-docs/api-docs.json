@@ -668,7 +668,8 @@
                     "finger_index",
                     "finger_middle",
                     "finger_ring",
-                    "finger_pink"
+                    "finger_pink",
+                    "wrist"
                 ],
                 "properties": {
                     "session_id": {
@@ -715,6 +716,11 @@
                     },
                     "finger_pink": {
                         "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "wrist": {
+                        "description": "Wrist",
                         "type": "string",
                         "example": "{}"
                     }
@@ -777,7 +783,8 @@
                     "finger_index",
                     "finger_middle",
                     "finger_ring",
-                    "finger_pink"
+                    "finger_pink",
+                    "wrist"
                 ],
                 "properties": {
                     "session_id": {
@@ -824,6 +831,11 @@
                     },
                     "finger_pink": {
                         "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "wrist": {
+                        "description": "Wrist",
                         "type": "string",
                         "example": "{}"
                     }

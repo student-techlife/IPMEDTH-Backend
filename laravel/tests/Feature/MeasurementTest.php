@@ -109,6 +109,7 @@ class MeasurementTest extends TestCase
             'finger_middle' => '{"finger_middle": "blabla"}',
             'finger_ring' => '{"finger_ring": "blabla"}',
             'finger_pink' => '{"finger_pink": "blabla"}',
+            'wrist' => '{"wrist": "blabla"}',
         ];
 
         // Send post request
@@ -164,6 +165,7 @@ class MeasurementTest extends TestCase
             'finger_middle' => '{"finger_middle": "blabla"}',
             'finger_ring' => '{"finger_ring": "blabla"}',
             'finger_pink' => '{"finger_pink": "blabla"}',
+            'wrist' => '{"wrist": "blabla"}',
         ];
 
         // Send post request

@@ -26,6 +26,7 @@ class Measurement extends JsonResource
             'finger_middle' => $this->finger_middle,
             'finger_ring' => $this->finger_ring,
             'finger_pink' => $this->finger_pink,
+            'wrist' => $this->wrist,
             'created_at' => $this->created_at->format('d-m-Y H:m:s'),
             'updated_at' => $this->updated_at->format('d-m-Y H:m:s'),
         ];
