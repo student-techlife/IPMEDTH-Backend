@@ -58,8 +58,8 @@ class RegisterRequest extends FormRequest
         $errors = $validator->errors();
         $response = response()->json([
             'success' => false,
-            'message' => 'Validation Error.',
-            'details' => $errors->messages(),
+            'message' => 'The given data was invalid.',
+            'errors' => $errors->messages(),
         ], 422);
 
         throw new HttpResponseException($response);
