@@ -118,8 +118,8 @@ class AuthTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'success' => false,
-                'message' => 'Validation Error.',
-                'details' => [
+                'message' => 'The given data was invalid.',
+                'errors' => [
                     'email' => ['The email must be a valid email address.'],
                     'name' => ['The name field is required.'],
                     'password' => ['The password must be at least 6 characters.'],
