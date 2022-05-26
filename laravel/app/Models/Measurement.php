@@ -24,7 +24,7 @@ class Measurement extends Model
         'finger_index',
         'finger_middle',
         'finger_ring',
-        'finger_5',
+        'finger_pink',
     ];
 
     /**

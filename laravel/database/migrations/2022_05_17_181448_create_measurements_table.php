@@ -24,7 +24,7 @@ return new class extends Migration
             $table->json('finger_index');
             $table->json('finger_middle');
             $table->json('finger_ring');
-            $table->json('finger_5');
+            $table->json('finger_pink');
             $table->timestamps();
         });
     }

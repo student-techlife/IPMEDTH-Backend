@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 
 /**
- * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_thumb", "finger_index", "finger_middle", "finger_ring", "finger_5"})
+ * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_thumb", "finger_index", "finger_middle", "finger_ring", "finger_pink"})
  */
 class UpdateMeasurementRequest extends FormRequest
 {
@@ -37,7 +37,7 @@ class UpdateMeasurementRequest extends FormRequest
      * @OA\Property(type="string", example="{}", description="Index finger", property="finger_index"),
      * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_middle"),
      * @OA\Property(type="string", example="{}", description="Ring finger", property="finger_ring"),
-     * @OA\Property(type="string", example="{}", description="Little finger", property="finger_5"),
+     * @OA\Property(type="string", example="{}", description="Little finger", property="finger_pink"),
      */
     public function rules()
     {
@@ -54,7 +54,7 @@ class UpdateMeasurementRequest extends FormRequest
             'finger_index' => 'required|json',
             'finger_middle' => 'required|json',
             'finger_ring' => 'required|json',
-            'finger_5' => 'required|json',
+            'finger_pink' => 'required|json',
         ];
     }
 
