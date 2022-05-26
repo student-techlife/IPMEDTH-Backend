@@ -90,7 +90,6 @@ class SessionTest extends TestCase
         $patient = Patient::factory()->create();
 
         $data = [
-            'id' => 1,
             'date' => '01-01-2021',
             'patient_id' => $patient->id,
         ];
@@ -102,7 +101,6 @@ class SessionTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
                     'date' => '01-01-2021',
                     'user_id' => $user->id,
                     'patient_id' => $patient->id,
@@ -142,7 +140,7 @@ class SessionTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
+                    'id' => $session->id,
                     'date' => '01-01-2020',
                     'user_id' => $user->id,
                     'patient_id' => $session->patient_id,
