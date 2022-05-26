@@ -1,8 +1,13 @@
+# Folders
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
+/.idea
+/.vscode
+
+# Files
 .env
 .env.backup
 .env.testing
@@ -11,5 +16,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
+*.sqlite

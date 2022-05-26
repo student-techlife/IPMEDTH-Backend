@@ -54,7 +54,7 @@ class AuthController extends BaseController
         $success['name'] = $user->name;
         $success['email'] = $user->email;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success, 'User registered successfully.');
     }
 
     /**
@@ -104,7 +104,7 @@ class AuthController extends BaseController
             $success['token_type'] = 'Bearer';
             $success['name'] = $user->name;
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success, 'User logged in successfully.');
         }
         else{
             return $this->sendError(trans('auth.failed'), ['error'=>'Unauthorised'], 401);
@@ -138,7 +138,7 @@ class AuthController extends BaseController
         $request->user()->tokens()->delete();
         // Revoke the token that was used to authenticate the current request
         // $request->user()->currentAccessToken()->delete();
-        return $this->sendResponse([], 'User logout successfully.');
+        return $this->sendResponse([], 'User logged out successfully.');
     }
 
     /**
@@ -164,6 +164,6 @@ class AuthController extends BaseController
      */
     public function getAuthenticatedUser(Request $request)
     {
-        return $this->sendResponse(Auth::user(), 'User retrieved successfully.');
+        return $this->sendResponse(Auth::user(), 'User info retrieved successfully.');
     }
 }
