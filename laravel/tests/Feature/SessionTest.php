@@ -63,7 +63,7 @@ class SessionTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
+                    'id' => $session->id,
                     'date' => $session->date->format('d-m-Y'),
                     'user_id' => $user->id,
                     'patient_id' => $session->patient_id,
@@ -104,7 +104,7 @@ class SessionTest extends TestCase
                     'id' => 1,
                     'date' => '01-01-2021',
                     'user_id' => $user->id,
-                    'patient_id' => 1,
+                    'patient_id' => $patient->id,
                     'measurements' => [],
                 ],
                 'message' => 'Session created successfully.',
@@ -144,7 +144,7 @@ class SessionTest extends TestCase
                     'id' => 1,
                     'date' => '01-01-2020',
                     'user_id' => $user->id,
-                    'patient_id' => 1,
+                    'patient_id' => $session->patient_id,
                     'measurements' => [],
                 ],
                 'message' => 'Session updated successfully.',

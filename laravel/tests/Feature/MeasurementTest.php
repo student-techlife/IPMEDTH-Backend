@@ -70,9 +70,9 @@ class MeasurementTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
-                    'user_id' => 1,
-                    'session_id' => 1,
+                    'id' => $measurement->id,
+                    'user_id' => $user->id,
+                    'session_id' => $session->id,
                     'hand_view' => $measurement->hand_view,
                     'hand_type' => $measurement->hand_type,
                     'hand_score' => $measurement->hand_score,
@@ -121,7 +121,7 @@ class MeasurementTest extends TestCase
                 'data' => [
                     'id' => 1,
                     'user_id' => 1,
-                    'session_id' => 1,
+                    'session_id' => $session->id,
                     'hand_type' => 'left',
                     'hand_view' => 'thumb_side',
                     'hand_score' => '0.85',

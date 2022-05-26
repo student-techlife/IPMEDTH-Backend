@@ -135,7 +135,7 @@ class PatientTest extends TestCase
             ->assertJson([
                 'success' => true,
                 'data' => [
-                    'id' => 1,
+                    'id' => $patient->id,
                     'name' => $data['name'],
                     'date_of_birth' => $data['date_of_birth'],
                     'email' => $data['email'],
