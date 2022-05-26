@@ -20,11 +20,12 @@ return new class extends Migration
             $table->enum('hand_view', ['thumb_side', 'pink_side', 'finger_side', 'back_side']);
             $table->enum('hand_type', ['left', 'right']);
             $table->float('hand_score');
-            $table->json('finger_1');
-            $table->json('finger_2');
-            $table->json('finger_3');
-            $table->json('finger_4');
-            $table->json('finger_5');
+            $table->json('finger_thumb');
+            $table->json('finger_index');
+            $table->json('finger_middle');
+            $table->json('finger_ring');
+            $table->json('finger_pink');
+            $table->json('wrist');
             $table->timestamps();
         });
     }

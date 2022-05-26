@@ -20,11 +20,12 @@ class Measurement extends Model
         'hand_view',
         'hand_type',
         'hand_score',
-        'finger_1',
-        'finger_2',
-        'finger_3',
-        'finger_4',
-        'finger_5',
+        'finger_thumb',
+        'finger_index',
+        'finger_middle',
+        'finger_ring',
+        'finger_pink',
+        'wrist',
     ];
 
     /**

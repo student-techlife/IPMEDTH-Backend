@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 
 /**
- * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_1", "finger_2", "finger_3", "finger_4", "finger_5"})
+ * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_thumb", "finger_index", "finger_middle", "finger_ring", "finger_pink", "wrist"})
  */
 class UpdateMeasurementRequest extends FormRequest
 {
@@ -33,11 +33,12 @@ class UpdateMeasurementRequest extends FormRequest
      * @OA\Property(type="string", example="left", description="The hand that was photographed", property="hand_type"),
      * @OA\Property(type="string", example="thumb_side", description="What angle was the photo taken from", property="hand_view"),
      * @OA\Property(type="number", format="float", example=0.85, description="The score of the hand", property="hand_score"),
-     * @OA\Property(type="string", example="{}", description="Thumb", property="finger_1"),
-     * @OA\Property(type="string", example="{}", description="Index finger", property="finger_2"),
-     * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_3"),
-     * @OA\Property(type="string", example="{}", description="Ring finger", property="finger_4"),
-     * @OA\Property(type="string", example="{}", description="Little finger", property="finger_5"),
+     * @OA\Property(type="string", example="{}", description="Thumb", property="finger_thumb"),
+     * @OA\Property(type="string", example="{}", description="Index finger", property="finger_index"),
+     * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_middle"),
+     * @OA\Property(type="string", example="{}", description="Ring finger", property="finger_ring"),
+     * @OA\Property(type="string", example="{}", description="Little finger", property="finger_pink"),
+     * @OA\Property(type="string", example="{}", description="Wrist", property="wrist"),
      */
     public function rules()
     {
@@ -50,11 +51,12 @@ class UpdateMeasurementRequest extends FormRequest
                 'required',
                 Rule::in(['thumb_side', 'pink_side', 'finger_side', 'back_side'])],
             'hand_score' => 'required|numeric|min:0|max:1',
-            'finger_1' => 'required|json',
-            'finger_2' => 'required|json',
-            'finger_3' => 'required|json',
-            'finger_4' => 'required|json',
-            'finger_5' => 'required|json',
+            'finger_thumb' => 'required|json',
+            'finger_index' => 'required|json',
+            'finger_middle' => 'required|json',
+            'finger_ring' => 'required|json',
+            'finger_pink' => 'required|json',
+            'wrist' => 'required|json',
         ];
     }
 

@@ -664,11 +664,12 @@
                     "hand_view",
                     "hand_type",
                     "hand_score",
-                    "finger_1",
-                    "finger_2",
-                    "finger_3",
-                    "finger_4",
-                    "finger_5"
+                    "finger_thumb",
+                    "finger_index",
+                    "finger_middle",
+                    "finger_ring",
+                    "finger_pink",
+                    "wrist"
                 ],
                 "properties": {
                     "session_id": {
@@ -693,28 +694,33 @@
                         "format": "float",
                         "example": 0.85
                     },
-                    "finger_1": {
+                    "finger_thumb": {
                         "description": "Thumb",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_2": {
+                    "finger_index": {
                         "description": "Index finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_3": {
+                    "finger_middle": {
                         "description": "Middle finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_4": {
+                    "finger_ring": {
                         "description": "Ring finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_5": {
+                    "finger_pink": {
                         "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "wrist": {
+                        "description": "Wrist",
                         "type": "string",
                         "example": "{}"
                     }
@@ -773,11 +779,12 @@
                     "hand_view",
                     "hand_type",
                     "hand_score",
-                    "finger_1",
-                    "finger_2",
-                    "finger_3",
-                    "finger_4",
-                    "finger_5"
+                    "finger_thumb",
+                    "finger_index",
+                    "finger_middle",
+                    "finger_ring",
+                    "finger_pink",
+                    "wrist"
                 ],
                 "properties": {
                     "session_id": {
@@ -802,28 +809,33 @@
                         "format": "float",
                         "example": 0.85
                     },
-                    "finger_1": {
+                    "finger_thumb": {
                         "description": "Thumb",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_2": {
+                    "finger_index": {
                         "description": "Index finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_3": {
+                    "finger_middle": {
                         "description": "Middle finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_4": {
+                    "finger_ring": {
                         "description": "Ring finger",
                         "type": "string",
                         "example": "{}"
                     },
-                    "finger_5": {
+                    "finger_pink": {
                         "description": "Little finger",
+                        "type": "string",
+                        "example": "{}"
+                    },
+                    "wrist": {
+                        "description": "Wrist",
                         "type": "string",
                         "example": "{}"
                     }
