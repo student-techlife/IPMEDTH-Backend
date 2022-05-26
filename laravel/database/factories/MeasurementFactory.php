@@ -25,7 +25,7 @@ class MeasurementFactory extends Factory
             'hand_type' => $this->faker->randomElement(['left', 'right']),
             'hand_score' => $this->faker->randomFloat(2, 0, 1),
             'finger_thumb' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
-            'finger_2' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
+            'finger_index' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_3' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_4' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_5' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),

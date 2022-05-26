@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('hand_type', ['left', 'right']);
             $table->float('hand_score');
             $table->json('finger_thumb');
-            $table->json('finger_2');
+            $table->json('finger_index');
             $table->json('finger_3');
             $table->json('finger_4');
             $table->json('finger_5');

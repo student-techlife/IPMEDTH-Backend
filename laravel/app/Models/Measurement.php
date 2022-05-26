@@ -21,7 +21,7 @@ class Measurement extends Model
         'hand_type',
         'hand_score',
         'finger_thumb',
-        'finger_2',
+        'finger_index',
         'finger_3',
         'finger_4',
         'finger_5',
