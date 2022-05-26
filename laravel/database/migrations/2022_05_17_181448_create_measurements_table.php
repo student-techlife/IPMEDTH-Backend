@@ -22,7 +22,7 @@ return new class extends Migration
             $table->float('hand_score');
             $table->json('finger_thumb');
             $table->json('finger_index');
-            $table->json('finger_3');
+            $table->json('finger_middle');
             $table->json('finger_4');
             $table->json('finger_5');
             $table->timestamps();

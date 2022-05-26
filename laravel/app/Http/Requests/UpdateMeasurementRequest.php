@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 
 /**
- * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_thumb", "finger_index", "finger_3", "finger_4", "finger_5"})
+ * @OA\Schema(required={"session_id", "hand_view", "hand_type", "hand_score", "finger_thumb", "finger_index", "finger_middle", "finger_4", "finger_5"})
  */
 class UpdateMeasurementRequest extends FormRequest
 {
@@ -35,7 +35,7 @@ class UpdateMeasurementRequest extends FormRequest
      * @OA\Property(type="number", format="float", example=0.85, description="The score of the hand", property="hand_score"),
      * @OA\Property(type="string", example="{}", description="Thumb", property="finger_thumb"),
      * @OA\Property(type="string", example="{}", description="Index finger", property="finger_index"),
-     * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_3"),
+     * @OA\Property(type="string", example="{}", description="Middle finger", property="finger_middle"),
      * @OA\Property(type="string", example="{}", description="Ring finger", property="finger_4"),
      * @OA\Property(type="string", example="{}", description="Little finger", property="finger_5"),
      */
@@ -52,7 +52,7 @@ class UpdateMeasurementRequest extends FormRequest
             'hand_score' => 'required|numeric|min:0|max:1',
             'finger_thumb' => 'required|json',
             'finger_index' => 'required|json',
-            'finger_3' => 'required|json',
+            'finger_middle' => 'required|json',
             'finger_4' => 'required|json',
             'finger_5' => 'required|json',
         ];

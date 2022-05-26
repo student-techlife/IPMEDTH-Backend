@@ -23,7 +23,7 @@ class Measurement extends JsonResource
             'hand_score' => $this->hand_score,
             'finger_thumb' => $this->finger_thumb,
             'finger_index' => $this->finger_index,
-            'finger_3' => $this->finger_3,
+            'finger_middle' => $this->finger_middle,
             'finger_4' => $this->finger_4,
             'finger_5' => $this->finger_5,
             'created_at' => $this->created_at->format('d-m-Y H:m:s'),
