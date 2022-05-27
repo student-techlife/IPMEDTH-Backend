@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 /**
@@ -79,5 +80,13 @@ class BaseController extends Controller
             $response['data'] = $errorMessages;
         }
         return response()->json($response, $code);
+    }
+
+    /**
+     * Remove old images from storage
+     */
+    protected function deleteImage($type, $imageName)
+    {
+        Storage::disk('local')->delete('private/images/'.$type.'/'.$imageName);
     }
 }
