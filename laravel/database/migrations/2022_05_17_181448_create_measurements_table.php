@@ -26,6 +26,7 @@ return new class extends Migration
             $table->json('finger_ring');
             $table->json('finger_pink');
             $table->json('wrist');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

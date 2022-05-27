@@ -6,10 +6,14 @@ use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Measurement as MeasurementResource;
 use App\Http\Requests\StoreMeasurementRequest;
 use App\Http\Requests\UpdateMeasurementRequest;
-use Illuminate\Http\Request;
 use App\Models\Measurement;
 use App\Models\Session;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 use Validator;
+use Image;
 
 class MeasurementController extends BaseController
 {
@@ -81,10 +85,20 @@ class MeasurementController extends BaseController
      */
     public function store(StoreMeasurementRequest $request)
     {
+        // Prepare the image for upload
+        if ($request->has('image')) {
+            $imageName = time().'-measurement'.'.'.$request->image->extension();
+            $store_image = Image::make($request->image)->resize(null, 600, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            Storage::disk('local')->put('private/images/measurements/'.$imageName, $store_image->stream(), 'private');
+        }
+
         // Create new measurement instance
         $measurement = Measurement::create(array_merge(
             $request->validated(),
-            ['user_id' => auth()->id()]
+            ['user_id' => auth()->id(),
+            'image' => $imageName ?? null]
         ));
         return $this->sendResponse(new MeasurementResource($measurement), 'Measurement created successfully.');
     }
@@ -101,7 +115,7 @@ class MeasurementController extends BaseController
      *     operationId="GetMeasurement",
      *     tags={"Measurements"},
      *     summary="Get a measurement",
-     *     description="Returns a measurement",
+     *     description="Returns a measurement. Get the related image by calling the image endpoint: https://ipmedth.nl/images/measurements/{filename}",
      *     security={ {"sanctum": {} }},
      *     @OA\Parameter(
      *         name="id",
@@ -182,7 +196,20 @@ class MeasurementController extends BaseController
      */
     public function update(UpdateMeasurementRequest $request, Measurement $measurement)
     {
-        $measurement->update($request->validated());
+        if ($request->has('image')) {
+            // Delete the old image
+            $this->deleteImage('measurements', $measurement->image);
+
+            $imageName = time().'-measurement'.'.'.$request->image->extension();
+            $store_image = Image::make($request->image)->resize(null, 600, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            Storage::disk('local')->put('private/images/measurements/'.$imageName, $store_image->stream(), 'private');
+        }
+        $measurement->update(array_merge(
+            $request->validated(),
+            ['image' => $imageName ?? $measurement->image]
+        ));
         return $this->sendResponse(new MeasurementResource($measurement), 'Measurement updated successfully.');
     }
 
@@ -225,6 +252,8 @@ class MeasurementController extends BaseController
         if (is_null($measurement)) {
             return $this->sendError('Measurement not found.');
         }
+        // Delete event and related objects
+        $this->deleteImage('measurements', $measurement->image);
         $measurement->delete();
         return $this->sendResponse([], 'Measurement deleted successfully.');
     }

@@ -194,7 +194,7 @@
                     "Measurements"
                 ],
                 "summary": "Get a measurement",
-                "description": "Returns a measurement",
+                "description": "Returns a measurement. Get the related image by calling the image endpoint: https://ipmedth.nl/images/measurements/{filename}",
                 "operationId": "GetMeasurement",
                 "parameters": [
                     {
@@ -723,6 +723,12 @@
                         "description": "Wrist",
                         "type": "string",
                         "example": "{}"
+                    },
+                    "image": {
+                        "description": "Photo of the hand the was made",
+                        "type": "string",
+                        "format": "binary",
+                        "example": "file"
                     }
                 },
                 "type": "object"
@@ -838,6 +844,12 @@
                         "description": "Wrist",
                         "type": "string",
                         "example": "{}"
+                    },
+                    "image": {
+                        "description": "Photo of the hand the was made",
+                        "type": "string",
+                        "format": "binary",
+                        "example": "file"
                     }
                 },
                 "type": "object"

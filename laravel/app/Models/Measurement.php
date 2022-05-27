@@ -26,6 +26,7 @@ class Measurement extends Model
         'finger_ring',
         'finger_pink',
         'wrist',
+        'image',
     ];
 
     /**

@@ -39,6 +39,7 @@ class StoreMeasurementRequest extends FormRequest
      * @OA\Property(type="string", example="{}", description="Ring finger", property="finger_ring"),
      * @OA\Property(type="string", example="{}", description="Little finger", property="finger_pink"),
      * @OA\Property(type="string", example="{}", description="Wrist", property="wrist"),
+     * @OA\Property(type="string", format="binary", example="file", description="Photo of the hand the was made", property="image"),
      */
     public function rules()
     {
@@ -57,6 +58,7 @@ class StoreMeasurementRequest extends FormRequest
             'finger_ring' => 'required|json',
             'finger_pink' => 'required|json',
             'wrist' => 'required|json',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
