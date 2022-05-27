@@ -30,7 +30,7 @@ class MeasurementFactory extends Factory
             'finger_ring' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'finger_pink' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
             'wrist' => json_encode(['thing' => rand(11,99), 'other' => rand(11,99)]),
-            'image' => $this->faker->image(storage_path('images'), 640, 480, null, false),
+            'image' => $this->faker->image(storage_path('app/public/images'), 640, 480, null, false),
         ];
     }
 }
