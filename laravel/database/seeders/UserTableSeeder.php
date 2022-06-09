@@ -23,5 +23,7 @@ class UserTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        $user->assignRole('supervisor');
     }
 }
