@@ -46,7 +46,7 @@ class UpdateMeasurementRequest extends FormRequest
         return [
             'session_id' => [
                 'required',
-                Rule::exists('sessions', 'id')],
+                Rule::exists('patient_sessions', 'id')],
             'hand_type' => 'required|in:left,right',
             'hand_view' => [
                 'required',
