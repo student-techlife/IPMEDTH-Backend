@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // Add user seeder
             UserTableSeeder::class,
+            TeamTableSeeder::class,
 
             PatientTableSeeder::class,
             SessionTableSeeder::class,

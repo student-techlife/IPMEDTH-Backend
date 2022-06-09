@@ -87,6 +87,10 @@ After this only do a Laravel migration to the database and you are ready!
 ```bash
 cd laravel && php artisan migrate
 ```
+
+```bash
+php artisan migrate:fresh --env=testing
+```
 </details>
 
 ## License
