@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Measurement;
 use App\Models\Patient;
-use App\Models\Session;
+use App\Models\PatientSession;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -53,7 +53,7 @@ class MeasurementTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -95,7 +95,7 @@ class MeasurementTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -144,7 +144,7 @@ class MeasurementTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $sessions = Session::factory()->count(2)->create([
+        $sessions = PatientSession::factory()->count(2)->create([
             'user_id' => $user->id,
         ]);
 
@@ -201,7 +201,7 @@ class MeasurementTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -236,7 +236,7 @@ class MeasurementTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 

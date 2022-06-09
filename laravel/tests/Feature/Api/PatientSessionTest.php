@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Patient;
-use App\Models\Session;
+use App\Models\PatientSession;
 Use App\Models\User;
 use Tests\TestCase;
 
-class SessionTest extends TestCase
+class PatientSessionTest extends TestCase
 {
     /**
      * Test get all sessions.
@@ -24,7 +24,7 @@ class SessionTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create multiple sessions
-        Session::factory()->count(5)->create();
+        PatientSession::factory()->count(5)->create();
 
         // Send get request
         $response = $this->json('GET', route('api.sessions.index'), [], $headers);
@@ -52,7 +52,7 @@ class SessionTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -124,7 +124,7 @@ class SessionTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -164,7 +164,7 @@ class SessionTest extends TestCase
         $headers = ['Authorization' => "Bearer $token"];
 
         // Create a session
-        $session = Session::factory()->create([
+        $session = PatientSession::factory()->create([
             'user_id' => $user->id,
         ]);
 
