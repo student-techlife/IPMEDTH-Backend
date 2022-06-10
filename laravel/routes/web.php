@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +36,9 @@ Route::middleware(['auth:sanctum', 'verified', 'team'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
 });
