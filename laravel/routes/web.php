@@ -29,11 +29,8 @@ Route::get('/images/{type}/{file}', [ function ($type, $file) {
 Route::get('/phpinfo', function () {
     return phpinfo();
 });
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+
+Route::middleware(['auth:sanctum', 'verified', 'team'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
