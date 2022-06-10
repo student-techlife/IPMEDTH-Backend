@@ -10,6 +10,8 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <link href="{{ URL::asset('/assets/libs/flowbite/flowbite.min.css') }}" rel="stylesheet" type="text/css" />
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
@@ -40,6 +42,8 @@
         </div>
 
         @stack('modals')
+        <!-- JAVASCRIPT -->
+        <script type="application/javascript" src="{{ URL::asset('/assets/libs/flowbite/flowbite.min.js')}}"></script>
 
         @livewireScripts
     </body>
