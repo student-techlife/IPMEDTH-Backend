@@ -16,7 +16,7 @@ use App\Http\Controllers\RoleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 // Get images from storage
