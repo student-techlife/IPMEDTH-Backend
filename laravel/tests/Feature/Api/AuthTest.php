@@ -16,6 +16,7 @@ class AuthTest extends TestCase
      */
     public function test_user_can_register()
     {
+        $this->artisan('db:seed');
         // User's data
         $data = [
             'email' => 'test@ipmdeth.nl',
@@ -120,9 +121,9 @@ class AuthTest extends TestCase
                 'success' => false,
                 'message' => 'The given data was invalid.',
                 'errors' => [
-                    'email' => ['The email must be a valid email address.'],
-                    'name' => ['The name field is required.'],
-                    'password' => ['The password must be at least 6 characters.'],
+                    'email' => ['Email is geen geldig e-mailadres.'],
+                    'name' => ['Name is verplicht.'],
+                    'password' => ['Password moet minimaal 6 tekens zijn.'],
                 ],
             ]);
     }
@@ -145,7 +146,7 @@ class AuthTest extends TestCase
             ->assertUnauthorized()
             ->assertJson([
                 'success' => false,
-                'message' => 'These credentials do not match our records.',
+                'message' => 'Deze combinatie van e-mailadres en wachtwoord is niet geldig.',
             ]);
         $this->assertGuest();
     }

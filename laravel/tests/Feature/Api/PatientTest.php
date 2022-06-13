@@ -196,7 +196,7 @@ class PatientTest extends TestCase
                 'success' => false,
                 'message' => 'The given data was invalid.',
                 'errors' => [
-                    'email' => ['The email field is required.'],
+                    'email' => ['Email is verplicht.'],
                 ],
             ]);
     }
