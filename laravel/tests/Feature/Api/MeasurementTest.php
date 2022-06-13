@@ -262,10 +262,10 @@ class MeasurementTest extends TestCase
                         'The selected hand view is invalid, choose between thumb_side, pink_side, finger_side or back_side.',
                     ],
                     'hand_score' => [
-                        'The hand score must not be greater than 1.',
+                        'Hand score mag niet hoger dan 1 zijn.',
                     ],
                     'finger_index' => [
-                        'The finger index field is required.',
+                        'Finger index is verplicht.',
                     ],
                 ],
             ]);

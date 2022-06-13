@@ -2,9 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Rollen') }}
+                {{ __('Roles') }}
             </h2>
-            <a href="{{ route('roles.create') }}" class="text-rf-green hover:text-white border border-rf-green hover:bg-rf-dark-green focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Nieuwe Rol</a>
+            @can('role-create')
+                <a href="{{ route('roles.create') }}" class="text-rf-green hover:text-white border border-rf-green hover:bg-rf-dark-green focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ __('New role') }}</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -19,7 +21,7 @@
                                 ID
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Naam
+                                {{ __('Name') }}
                             </th>
                             <th scope="col" class="px-6 py-3"></th>
                         </tr>
@@ -35,11 +37,15 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 {{-- <a href="{{ route('roles.show', $role->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">{{ __('Bekijken') }}</a> --}}
-                                <a href="{{ route('roles.edit', $role->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">{{ __('Aanpassen') }}</a>
+                                @can('role-edit')
+                                    <a href="{{ route('roles.edit', $role->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">{{ __('Edit') }}</a>
+                                @endcan
                                 <form class="inline-block" action="{{ route('roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="{{ __('Verwijderen') }}">
+                                    @can('role-delete')
+                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="{{ __('Remove') }}">
+                                    @endcan
                                 </form>
                             </td>
                         </tr>

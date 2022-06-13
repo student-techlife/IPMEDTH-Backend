@@ -16,14 +16,20 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
-                        {{ __('Gebruikers') }}
-                    </x-jet-nav-link>
+                    @if (auth()->user()->hasRole(['manager','supervisor']))
+                        @can('users-list')
+                            <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                                {{ __('Users') }}
+                            </x-jet-nav-link>
+                        @endcan
 
-                    <x-jet-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
-                        {{ __('Rollen') }}
-                    </x-jet-nav-link>
-                    
+                        @can('roles-list')
+                            <x-jet-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
+                                {{ __('Roles') }}
+                            </x-jet-nav-link>
+                        @endcan
+                    @endif
+
                     <!-- Settings Dropdown -->
                     {{-- <div class="ml-3 relative sm:flex sm:items-center">
                         <x-jet-dropdown align="right" width="48">
@@ -62,6 +68,14 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @if(auth()->user()->hasRole(['manager','supervisor']))
+                    <div class="flex justify-between h-16">
+                        <x-jet-nav-link href="/backup" target="_blank">
+                            {{ __('Backups') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->isMemberOfATeam())
                     <div class="ml-3 relative">
@@ -136,11 +150,11 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Beheer mijn account') }}
+                                {{ __('Manage my account') }}
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profiel') }}
+                                {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -157,7 +171,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Uitloggen') }}
+                                    {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -184,13 +198,15 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
-                {{ __('Gebruikers') }}
-            </x-jet-responsive-nav-link>
+            @if (auth()->user()->hasRole(['manager','supervisor']))
+                <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
 
-            <x-jet-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
-                {{ __('Rollen') }}
-            </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
+                    {{ __('Roles') }}
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

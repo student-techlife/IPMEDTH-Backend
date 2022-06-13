@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Team;
 use Validator;
 
 class AuthController extends BaseController
@@ -49,6 +50,15 @@ class AuthController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+
+        // Assign role to user
+        $user->assignRole('user');
+
+        // Assign to the default team
+        $team = Team::find(1);
+        $user->teams()->attach($team, array('role' => 'editor'));
+        $user->switchTeam($team);
+
         $success['token'] = $user->createToken('ipmedth')->plainTextToken;
         $success['token_type'] = 'Bearer';
         $success['name'] = $user->name;

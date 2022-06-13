@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use App\Models\Team;
 use DB;
 
 class UserController extends Controller
@@ -62,6 +63,11 @@ class UserController extends Controller
         // Create and asign role
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+
+        // Assign to the default team
+        $team = Team::find(1);
+        $user->teams()->attach($team, array('role' => 'editor'));
+        $user->switchTeam($team);
 
         // Mark email of user as verified
         $user->markEmailAsVerified();

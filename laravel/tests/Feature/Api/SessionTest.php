@@ -204,10 +204,10 @@ class SessionTest extends TestCase
                 'message' => 'The given data was invalid.',
                 'errors' => [
                     'date' => [
-                        'The date is not a valid date.',
+                        'Date moet een datum bevatten.',
                     ],
                     'patient_id' => [
-                        'The selected patient id is invalid.',
+                        'Patient id bestaat niet.',
                     ],
                 ],
             ]);
