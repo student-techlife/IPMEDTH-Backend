@@ -17,7 +17,7 @@ class TeamTableSeeder extends Seeder
     {
         Team::create([
             'user_id' => 1,
-            'name' => "RF",
+            'name' => "Project",
             'personal_team' => 1,
             'created_at' => now(),
             'updated_at' => now(),
