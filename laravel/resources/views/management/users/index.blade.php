@@ -2,9 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Gebruikers') }}
+                {{ __('Users') }}
             </h2>
-            <a href="{{ route('users.create') }}" class="text-rf-green hover:text-white border border-rf-green hover:bg-rf-dark-green focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Nieuwe Gebruiker</a>
+            @can('user-create')
+                <a href="{{ route('users.create') }}" class="text-rf-green hover:text-white border border-rf-green hover:bg-rf-dark-green focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ __('New user') }}</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -19,16 +21,16 @@
                                 ID
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Naam
+                                {{ __('Name') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                E-Mail
+                                {{ __('Email') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Email Verified At
+                                {{ __('Email Verified At') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Rollen
+                                {{ __('Roles') }}
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 
@@ -60,12 +62,18 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">Bekijken</a>
-                                <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Aanpassen</a>
+                                <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">{{ __('Show') }}</a>
+                                @can('user-edit')
+                                    <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">{{ __('Edit') }}</a>
+                                @endcan
                                 <form class="inline-block" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                     @method('DELETE')
                                     @csrf
-                                    <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Verwijderen">
+                                    @can('user-delete')
+                                        @if ($user->id != auth()->user()->id)
+                                            <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="{{ __('Remove') }}">
+                                        @endif
+                                    @endcan
                                 </form>
                             </td>
                         </tr>

@@ -68,7 +68,7 @@ RUN pecl install imagick && \
     docker-php-ext-enable imagick
 
 # Install extensions
-RUN docker-php-ext-install mbstring pdo pdo_mysql pcntl zip
+RUN docker-php-ext-install mbstring pdo pdo_mysql pcntl zip bcmath
 
 COPY --from=backend /app /var/www
 COPY --from=frontend /app/node_modules /var/www/node_modules

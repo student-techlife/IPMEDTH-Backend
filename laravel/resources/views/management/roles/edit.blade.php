@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Rol: {{ $role->name }} {{ __('bewerken') }}
+            {{ __('Role') }} - {{ $role->name }}
         </h2>
     </x-slot>
 
@@ -18,7 +18,7 @@
                         <div class="grid md:grid-cols-1 sm:grid-cols-1 gap-6">
                             <div class="grid md:grid-rows-1 sm:grid-rows-1 gap-6">
                                 <div>
-                                    <x-jet-label for="name" :value="__('Naam')" />
+                                    <x-jet-label for="name" :value="__('Name')" />
                                     <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $role->name }}" autofocus />
                                 </div>
                             </div>
@@ -38,9 +38,9 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        @livewire('back-button', ['url' => route('roles.index'), 'name' => 'Terug'])
+                        @livewire('back-button', ['url' => route('roles.index'), 'name' => trans('button.back')])
                         <x-jet-button class="ml-3">
-                            {{ __('Aanpassen') }}
+                            {{ __('Save') }}
                         </x-jet-button>
                     </div>
                 </form>
