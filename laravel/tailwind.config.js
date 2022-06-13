@@ -10,6 +10,13 @@ module.exports = {
     ],
 
     theme: {
+        colors: {
+            'rf-blue': '#076fb3',
+            'rf-green': '#00aaa6',
+            'rf-dark-green': '#008d8a',
+            'rf-orange': '#f5993e',
+            'rf-red': '#df205e',
+        },
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
