@@ -8,7 +8,7 @@
     </div>
 
     <div class="mt-6 text-gray-500">
-        {{ __('From this management environment it is possible to create new users, to log in to the front-end application from which measurements can be performed manually.') }}
+        {{ __('From this management environment it is possible to manage your own account and in the future it will also be possible to add patients via this website. If you would like to change your password, you can do so under your profile (top right, on the circle with the name initials).') }}
     </div>
 </div>
 
@@ -16,21 +16,21 @@
     <div class="p-6">
         <div class="flex items-center">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold"><a href="https://laravel.com/docs">{{ __('patients') }}</a></div>
+            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">{{ __('patients') }}</div>
         </div>
     </div>
 
     <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
         <div class="flex items-center">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold"><a href="https://laracasts.com">{{ __('Results') }}</a></div>
+            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">{{ __('Results') }}</div>
         </div>
     </div>
 
     <div class="p-6 border-t border-gray-200">
         <div class="flex items-center">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold"><a href="https://tailwindcss.com/">{{ __('Sessions') }}</a></div>
+            <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">{{ __('Sessions') }}</div>
         </div>
     </div>
 
