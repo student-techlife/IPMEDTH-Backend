@@ -14,7 +14,7 @@
         "@tailwindcss/typography": "^0.5.4",
         "alpinejs": "^3.10.3",
         "axios": "^0.27",
-        "flowbite": "^1.5.2",
+        "flowbite": "^1.5.3",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
         "postcss": "^8.4.16",
