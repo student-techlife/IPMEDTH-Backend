@@ -53,7 +53,7 @@ jobs:
           node-version: '16.x'
 
       - name: Cache node_modules directory
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: node_modules-cache
         with:
           path: "${{env.FOLDER}}/node_modules"
@@ -81,7 +81,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: actions-cache
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
@@ -89,7 +89,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Cache PHP dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: vendor-cache
         with:
           path: "${{env.FOLDER}}/vendor"
